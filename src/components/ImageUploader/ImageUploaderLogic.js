@@ -79,6 +79,8 @@ const ImageUploaderLogic = () => {
       formData.append('images', files[i]);
     }
 
+    formData.append('eventId', 1);
+
     axios
       .post(API_ORIGIN + 'image', formData, {
         headers: {
