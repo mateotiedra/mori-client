@@ -1,11 +1,12 @@
 import { Box, Typography } from '@mui/material';
-import { TiTimes, TiChevronLeft } from 'react-icons/ti';
+import { TiTimes, TiChevronLeft, TiArrowRepeat } from 'react-icons/ti';
 import Webcam from 'react-webcam';
 
 import MoriCamLogic from './MoriCamLogic';
 
 function MoriCam({ onCloseCam, open }) {
-  const { capture, discard, webcamRef, imgSrc } = MoriCamLogic();
+  const { capture, discard, webcamProps, imgSrc, switchCamera } =
+    MoriCamLogic();
 
   return (
     <>
@@ -42,9 +43,8 @@ function MoriCam({ onCloseCam, open }) {
               objectFit: 'contain',
               display: imgSrc ? 'none' : 'inline',
             }}
-            ref={webcamRef}
+            {...webcamProps}
           />
-
           {imgSrc ? (
             <>
               <img
@@ -78,19 +78,37 @@ function MoriCam({ onCloseCam, open }) {
               </Box>
             </>
           ) : (
-            <Box
-              sx={{
-                backgroundColor: 'white',
-                width: '80px',
-                height: '80px',
-                borderRadius: '50%',
-                position: 'absolute',
-                left: '50%',
-                bottom: '70px',
-                transform: 'translate(-50%, 0)',
-              }}
-              onClick={capture}
-            />
+            <>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  color: 'white',
+                  width: '80px',
+                  height: '80px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                onClick={switchCamera}
+              >
+                <TiArrowRepeat color='white' size={40} />
+              </Box>
+              <Box
+                sx={{
+                  backgroundColor: 'white',
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  position: 'absolute',
+                  left: '50%',
+                  bottom: '70px',
+                  transform: 'translate(-50%, 0)',
+                }}
+                onClick={capture}
+              />
+            </>
           )}
           <Box
             sx={{

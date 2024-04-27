@@ -14,7 +14,31 @@ const MoriCamLogic = () => {
     setImgSrc(null);
   }, []);
 
-  return { capture, discard, webcamRef, imgSrc };
+  // Manage camera switch
+  const [facingUserMode, setFacingUserMode] = useState(false);
+  const switchCamera = useCallback(() => {
+    setFacingUserMode((prev) => !prev);
+  }, []);
+
+  // Cam settings
+  const FACING_MODE_USER = 'user';
+  const FACING_MODE_ENVIRONMENT = 'environment';
+  const webcamProps = {
+    videoConstraints: {
+      facingMode: facingUserMode ? FACING_MODE_USER : FACING_MODE_ENVIRONMENT,
+    },
+    ref: webcamRef,
+    mirrored: facingUserMode,
+  };
+
+  return {
+    capture,
+    discard,
+    webcamRef,
+    webcamProps,
+    imgSrc,
+    switchCamera,
+  };
 };
 
 export default MoriCamLogic;
