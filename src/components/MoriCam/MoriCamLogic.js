@@ -35,10 +35,17 @@ const MoriCamLogic = ({ onSaveImg }) => {
   };
 
   // Save the file
+  const [uploading, setUploading] = useState(false);
+
   const saveFile = useCallback(() => {
+    if (uploading) return;
+    setUploading(true);
     const file = UploadFileHelper.dataURLtoFile(imgSrc, 'image.jpg');
-    UploadFileHelper.upload([file], onSaveImg);
-  }, [imgSrc, onSaveImg]);
+    UploadFileHelper.upload([file], () => {
+      setUploading(false);
+      onSaveImg && onSaveImg();
+    });
+  }, [imgSrc, onSaveImg, uploading, setUploading]);
 
   return {
     capture,
