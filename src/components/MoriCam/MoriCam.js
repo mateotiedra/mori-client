@@ -49,7 +49,9 @@ function MoriCam({ onCloseCam, open, onSaveImg }) {
                 top: 0,
                 left: 0,
                 width: '100%',
+                zIndex: 100,
               }}
+              color='primary'
             />
           )}
           <Typography variant='h3' color='white'>
@@ -62,7 +64,7 @@ function MoriCam({ onCloseCam, open, onSaveImg }) {
               left: 0,
               height: '100%',
               width: '100%',
-              objectFit: 'contain',
+              objectFit: 'cover',
               display: imgSrc ? 'none' : 'inline',
             }}
             {...webcamProps}
@@ -76,7 +78,7 @@ function MoriCam({ onCloseCam, open, onSaveImg }) {
                   left: 0,
                   height: '100%',
                   width: '100%',
-                  objectFit: 'contain',
+                  objectFit: 'cover',
                 }}
                 src={imgSrc}
                 alt='captured'

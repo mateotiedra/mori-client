@@ -25,9 +25,8 @@ export const upload = (files, liveShot, next) => {
   for (let i = 0; i < files.length; i++) {
     formData.append('images', files[i]);
   }
-
   formData.append('eventId', 1);
-  formData.append('liveShot', liveShot);
+  liveShot && formData.append('liveShot', liveShot);
 
   axios
     .post(API_ORIGIN + 'image', formData, {

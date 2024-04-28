@@ -10,7 +10,7 @@ const ImageUploaderLogic = () => {
   const [loading, setLoading] = useState(false);
   const uploadFile = (e) => {
     setLoading(true);
-    UploadFileHelper.upload(files, () => {
+    UploadFileHelper.upload(files, false, () => {
       setLoading(false);
     });
   };
