@@ -15,51 +15,22 @@ const getExifFormattedDate = (date) => {
 
 const ImageUploaderLogic = () => {
   const [files, setFiles] = useState([]);
-
   const saveFiles = (e) => {
-    const newFiles = [];
-    const addNewFile = (newFile) => {
-      newFiles.push(newFile);
-    };
-
-    // Loop through input files and add save them in newFiles
-    for (let i = 0; i < e.target.files.length; i++) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        let readFile = e.target.result;
-
-        const exifObj = piexif.load(e.target.result);
-
-        // If the image does not have the DateTimeOriginal tag, add it
-        if (!exifObj.Exif[piexif.ExifIFD.DateTimeOriginal]) {
-          var exif = {};
-          exif[piexif.ExifIFD.DateTimeOriginal] = getExifFormattedDate(
-            new Date(Date.now())
-          );
-
-          const exifStr = piexif.dump({ '0th': {}, Exif: exif, GPS: {} });
-
-          readFile = UploadFileHelper.dataURLtoFile(
-            piexif.insert(exifStr, e.target.result)
-          );
-        }
-
-        addNewFile(readFile);
-      };
-
-      reader.readAsDataURL(e.target.files[i]);
-    }
-
-    setFiles(newFiles);
+    setFiles(e.target.files);
   };
 
-  const uploadFile = () => {
-    UploadFileHelper.upload(files);
+  const [loading, setLoading] = useState(false);
+  const uploadFile = (e) => {
+    setLoading(true);
+    UploadFileHelper.upload(files, () => {
+      setLoading(false);
+    });
   };
 
   return {
     saveFiles,
     uploadFile,
+    loading,
   };
 };
 

@@ -9,7 +9,12 @@ function ImageUploader() {
 
   return (
     <>
-      <input type='file' onChange={saveFiles} multiple />
+      <input
+        type='file'
+        onChange={saveFiles}
+        multiple
+        accept='.jpg, .jpeg, .png'
+      />
       <button onClick={uploadFile}>Upload File</button>
       {/* <Box width='100%' component='img' src={imgSrc} /> */}
     </>
