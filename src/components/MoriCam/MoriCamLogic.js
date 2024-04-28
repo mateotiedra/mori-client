@@ -43,6 +43,7 @@ const MoriCamLogic = ({ onSaveImg }) => {
     const file = UploadFileHelper.dataURLtoFile(imgSrc, 'image.jpg');
     UploadFileHelper.upload([file], () => {
       setUploading(false);
+      discard();
       onSaveImg && onSaveImg();
     });
   }, [imgSrc, onSaveImg, uploading, setUploading]);
@@ -55,6 +56,7 @@ const MoriCamLogic = ({ onSaveImg }) => {
     imgSrc,
     switchCamera,
     saveFile,
+    uploading,
   };
 };
 

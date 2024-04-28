@@ -35,6 +35,16 @@ function MoriCam({ onCloseCam, open, onSaveImg }) {
             alignItems: 'center',
           }}
         >
+          {uploading && (
+            <LinearProgress
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+              }}
+            />
+          )}
           <Typography variant='h3' color='white'>
             Caméra en attente...
           </Typography>
@@ -72,7 +82,7 @@ function MoriCam({ onCloseCam, open, onSaveImg }) {
                   color: 'white',
                   width: '80px',
                   height: '80px',
-                  display: 'flex',
+                  display: uploading ? 'none' : 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -84,7 +94,7 @@ function MoriCam({ onCloseCam, open, onSaveImg }) {
                 sx={{
                   position: 'absolute',
                   bottom: 0,
-                  display: 'flex',
+                  display: uploading ? 'none' : 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -161,7 +171,7 @@ function MoriCam({ onCloseCam, open, onSaveImg }) {
               color: 'white',
               width: '80px',
               height: '80px',
-              display: 'flex',
+              display: uploading ? 'none' : 'flex',
               justifyContent: 'center',
               alignItems: 'center',
             }}
