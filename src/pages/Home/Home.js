@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 //import { HashLink, HashLink as RouterLink } from 'react-router-hash-link';
 import { Typography } from '@mui/material';
@@ -8,7 +8,7 @@ import MoriCam from '../../components/MoriCam/MoriCam';
 import HomeLogic from './HomeLogic';
 
 function Home() {
-  const { camOpen, onCloseCam, openCam } = HomeLogic();
+  const { onCloseCam, openCam, onSaveImg, pageStatus } = HomeLogic();
 
   return (
     <>
@@ -17,7 +17,11 @@ function Home() {
       </Typography>
       <ImageUploader />
       <button onClick={openCam}>Open Camera</button>
-      <MoriCam onCloseCam={onCloseCam} open={camOpen} />
+      <MoriCam
+        onCloseCam={onCloseCam}
+        open={pageStatus === 'cam'}
+        onSaveImg={onSaveImg}
+      />
     </>
   );
 }

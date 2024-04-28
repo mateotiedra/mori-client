@@ -1,6 +1,7 @@
 import { useRef, useState, useCallback } from 'react';
+const UploadFileHelper = require('../../helpers/UploadFileHelper');
 
-const MoriCamLogic = () => {
+const MoriCamLogic = ({ onSaveImg }) => {
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
 
@@ -12,7 +13,7 @@ const MoriCamLogic = () => {
 
   const discard = useCallback(() => {
     setImgSrc(null);
-  }, []);
+  }, [setImgSrc]);
 
   // Manage camera switch
   const [facingUserMode, setFacingUserMode] = useState(false);
@@ -29,7 +30,15 @@ const MoriCamLogic = () => {
     },
     ref: webcamRef,
     mirrored: facingUserMode,
+    screenshotFormat: 'image/jpeg',
+    screenshotQuality: 1,
   };
+
+  // Save the file
+  const saveFile = useCallback(() => {
+    const file = UploadFileHelper.dataURLtoFile(imgSrc, 'image.jpg');
+    UploadFileHelper.upload([file], onSaveImg);
+  }, [imgSrc, onSaveImg]);
 
   return {
     capture,
@@ -38,6 +47,7 @@ const MoriCamLogic = () => {
     webcamProps,
     imgSrc,
     switchCamera,
+    saveFile,
   };
 };
 

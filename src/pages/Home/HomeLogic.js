@@ -1,20 +1,25 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
 const HomeLogic = () => {
-  const { useLoadPage } = PageLogicHelper();
+  const { useLoadPage, pageStatus, setPageStatus } = PageLogicHelper();
 
   useLoadPage(async () => {});
 
-  const [camOpen, setCamOpen] = useState(false);
+  // Manage cam opening
   const openCam = useCallback(() => {
-    setCamOpen(true);
-  }, []);
+    setPageStatus('cam');
+  }, [setPageStatus]);
   const onCloseCam = useCallback(() => {
-    setCamOpen(false);
-  }, []);
+    setPageStatus('idle');
+  }, [setPageStatus]);
 
-  return { camOpen, onCloseCam, openCam };
+  // After uploading the image
+  const onSaveImg = useCallback(() => {
+    setPageStatus('uploaded');
+  }, [setPageStatus]);
+
+  return { openCam, onCloseCam, pageStatus, onSaveImg };
 };
 
 export default HomeLogic;

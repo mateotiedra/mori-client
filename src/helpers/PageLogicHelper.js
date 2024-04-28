@@ -8,12 +8,11 @@ import {
 
 import axios from 'axios';
 
-import AppConfig from '../config/AppConfig';
 import AxiosHelper from './AxiosHelper';
 import ErrorHandlerContext from '../ErrorHandler/ErrorHandlerContext';
+import { API_ORIGIN } from '../config/AppConfig';
 
 const PageLogic = () => {
-  const { API_ORIGIN } = AppConfig();
   const { getStatusCode, setInterceptors } = AxiosHelper(axios);
   const { setErrorCode } = useContext(ErrorHandlerContext);
 

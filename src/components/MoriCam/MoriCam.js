@@ -1,12 +1,17 @@
-import { Box, Typography } from '@mui/material';
-import { TiTimes, TiChevronLeft, TiArrowRepeat } from 'react-icons/ti';
+import { Box, Button, Typography } from '@mui/material';
+import {
+  TiTimes,
+  TiChevronLeft,
+  TiArrowRepeat,
+  TiArrowForward,
+} from 'react-icons/ti';
 import Webcam from 'react-webcam';
 
 import MoriCamLogic from './MoriCamLogic';
 
-function MoriCam({ onCloseCam, open }) {
-  const { capture, discard, webcamProps, imgSrc, switchCamera } =
-    MoriCamLogic();
+function MoriCam({ onCloseCam, open, onSaveImg }) {
+  const { capture, discard, webcamProps, imgSrc, switchCamera, saveFile } =
+    MoriCamLogic({ onSaveImg });
 
   return (
     <>
@@ -59,7 +64,6 @@ function MoriCam({ onCloseCam, open }) {
                 src={imgSrc}
                 alt='captured'
               />
-
               <Box
                 sx={{
                   position: 'absolute',
@@ -75,6 +79,45 @@ function MoriCam({ onCloseCam, open }) {
                 onClick={discard}
               >
                 <TiTimes color='white' size={40} />
+              </Box>
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Box
+                  sx={{
+                    color: 'white',
+                    fontSize: '2rem',
+                    width: '100%',
+                    py: 12,
+                    backgroundColor: 'transparent',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    flexDirection: 'row',
+                  }}
+                  onClick={saveFile}
+                >
+                  <Typography
+                    color='white'
+                    textTransform='uppercase'
+                    fontWeight={700}
+                    fontSize={35}
+                  >
+                    Envoyer
+                  </Typography>
+                  <TiArrowForward
+                    color='white'
+                    size={45}
+                    style={{ marginLeft: 5 }}
+                  />
+                </Box>
               </Box>
             </>
           ) : (
