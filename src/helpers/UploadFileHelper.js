@@ -20,13 +20,14 @@ export const dataURLtoFile = (dataurl, filename) => {
   return new File([blob], filename, { type: mime });
 };
 
-export const upload = (files, next) => {
+export const upload = (files, liveShot, next) => {
   const formData = new FormData();
   for (let i = 0; i < files.length; i++) {
     formData.append('images', files[i]);
   }
 
   formData.append('eventId', 1);
+  formData.append('liveShot', liveShot);
 
   axios
     .post(API_ORIGIN + 'image', formData, {
