@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, LinearProgress, Typography } from '@mui/material';
 import {
   TiTimes,
   TiChevronLeft,
@@ -10,8 +10,15 @@ import Webcam from 'react-webcam';
 import MoriCamLogic from './MoriCamLogic';
 
 function MoriCam({ onCloseCam, open, onSaveImg }) {
-  const { capture, discard, webcamProps, imgSrc, switchCamera, saveFile } =
-    MoriCamLogic({ onSaveImg });
+  const {
+    capture,
+    discard,
+    webcamProps,
+    imgSrc,
+    switchCamera,
+    saveFile,
+    uploading,
+  } = MoriCamLogic({ onSaveImg });
 
   return (
     <>

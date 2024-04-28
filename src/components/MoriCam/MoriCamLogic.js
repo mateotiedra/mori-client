@@ -46,7 +46,7 @@ const MoriCamLogic = ({ onSaveImg }) => {
       discard();
       onSaveImg && onSaveImg();
     });
-  }, [imgSrc, onSaveImg, uploading, setUploading]);
+  }, [imgSrc, onSaveImg, uploading, setUploading, discard]);
 
   return {
     capture,
