@@ -1,4 +1,4 @@
-import { useCallback, useContext, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
@@ -12,37 +12,32 @@ const HomeLogic = () => {
     setPageStatus('idle');
   });
 
-  // Manage cam opening
-  const openCam = useCallback(() => {
-    setPageStatus('cam');
-  }, [setPageStatus]);
-  const onCloseCam = useCallback(() => {
-    setPageStatus('idle');
-  }, [setPageStatus]);
-
   // Add owner to image
-  const addOwner = useCallback((xAccessToken, givenImageUuid) => {
-    axios
-      .put(
-        API_ORIGIN + 'image/addowner',
-        { imageUuid: givenImageUuid },
-        {
-          headers: {
-            'x-access-token':
-              xAccessToken || localStorage.getItem('x-access-token'),
-          },
-        }
-      )
-      .then(() => {
-        setPageStatus('idle');
-      })
-      .catch((err) => {
-        if (err?.response?.status === 401) {
-          localStorage.removeItem('x-access-token');
-          setPageStatus('register');
-        }
-      });
-  }, []);
+  const addOwner = useCallback(
+    (xAccessToken, givenImageUuid) => {
+      axios
+        .put(
+          API_ORIGIN + 'image/addowner',
+          { imageUuid: givenImageUuid },
+          {
+            headers: {
+              'x-access-token':
+                xAccessToken || localStorage.getItem('x-access-token'),
+            },
+          }
+        )
+        .then(() => {
+          setPageStatus('idle');
+        })
+        .catch((err) => {
+          if (err?.response?.status === 401) {
+            localStorage.removeItem('x-access-token');
+            setPageStatus('register');
+          }
+        });
+    },
+    [setPageStatus]
+  );
 
   // After uploading the image
   const [imageUuid, setImageUuid] = useState(null);
@@ -66,7 +61,6 @@ const HomeLogic = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = ({ phone }) => {
@@ -93,8 +87,6 @@ const HomeLogic = () => {
   const [phoneErrorMessage, setPhoneErrorMessage] = useState();
 
   return {
-    openCam,
-    onCloseCam,
     pageStatus,
     onSaveImg,
     phoneRegistration,

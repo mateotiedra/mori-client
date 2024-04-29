@@ -4,13 +4,10 @@ import React from 'react';
 import { TextField, Typography } from '@mui/material';
 
 import ImageUploader from '../../components/ImageUploader/ImageUploader';
-import MoriCam from '../../components/MoriCam/MoriCam';
 import HomeLogic from './HomeLogic';
 
 function Home() {
   const {
-    onCloseCam,
-    openCam,
     onSaveImg,
     pageStatus,
     onSubmit,
@@ -43,12 +40,6 @@ function Home() {
           Home
         </Typography>
         <ImageUploader onSaveImg={onSaveImg} />
-        <button onClick={openCam}>Open Camera</button>
-        <MoriCam
-          onCloseCam={onCloseCam}
-          open={pageStatus === 'cam'}
-          onSaveImg={onSaveImg}
-        />
       </>
     );
 }

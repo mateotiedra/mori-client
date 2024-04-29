@@ -1,11 +1,17 @@
 import React from 'react';
 
 import ImageUploaderLogic from './ImageUploaderLogic';
+import MoriCam from '../MoriCam/MoriCam';
 
-//import Logo from '../../assets/rsvg/logo.js';
-
-function ImageUploader(props) {
-  const { saveFiles, uploadFile } = ImageUploaderLogic(props);
+function ImageUploader({ onSaveImg }) {
+  const {
+    saveFiles,
+    uploadFile,
+    openCam,
+    onCloseCam,
+    camIsOpen,
+    inputCamSupported,
+  } = ImageUploaderLogic({ onSaveImg });
 
   return (
     <>
@@ -13,10 +19,20 @@ function ImageUploader(props) {
         type='file'
         onChange={saveFiles}
         multiple
-        accept='.jpg, .jpeg, .png'
+        accept='image/jpg, image/jpeg, image/png'
+        capture={false}
       />
       <button onClick={uploadFile}>Upload File</button>
-      {/* <Box width='100%' component='img' src={imgSrc} /> */}
+      {!inputCamSupported && (
+        <>
+          <button onClick={openCam}>Open Camera</button>
+          <MoriCam
+            onCloseCam={onCloseCam}
+            open={camIsOpen}
+            onSaveImg={onSaveImg}
+          />
+        </>
+      )}
     </>
   );
 }
