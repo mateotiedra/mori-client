@@ -4,8 +4,8 @@ import ImageUploaderLogic from './ImageUploaderLogic';
 
 //import Logo from '../../assets/rsvg/logo.js';
 
-function ImageUploader() {
-  const { saveFiles, uploadFile } = ImageUploaderLogic();
+function ImageUploader(props) {
+  const { saveFiles, uploadFile } = ImageUploaderLogic(props);
 
   return (
     <>

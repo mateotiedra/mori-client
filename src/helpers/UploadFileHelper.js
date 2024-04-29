@@ -35,7 +35,7 @@ export const upload = (files, liveShot, next) => {
       },
     })
     .then((res) => {
-      next && next();
+      next && next(res);
     })
     .catch((err) => console.log(err));
 };
