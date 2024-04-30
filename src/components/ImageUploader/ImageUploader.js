@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Button, Divider } from '@mui/material';
+import { Box } from '@mui/material';
 import { TiCamera, TiImage } from 'react-icons/ti';
 
 import MoriCam from '../MoriCam/MoriCam';
@@ -8,24 +8,10 @@ import ImageUploaderLogic from './ImageUploaderLogic';
 import Palette from '../../theme/palette';
 
 function ImageUploader({ onSaveImg }) {
-  const {
-    saveFiles,
-    uploadFile,
-    openCam,
-    onCloseCam,
-    camIsOpen,
-    inputCamSupported,
-  } = ImageUploaderLogic({ onSaveImg });
+  const { uploadFile, openCam, onCloseCam, camIsOpen, inputCamSupported } =
+    ImageUploaderLogic({ onSaveImg });
 
   const palette = Palette();
-
-  const flexCenterContainerSx = {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-  };
 
   return (
     <>
@@ -41,7 +27,7 @@ function ImageUploader({ onSaveImg }) {
       >
         <input
           type='file'
-          onChange={saveFiles}
+          onChange={uploadFile}
           multiple
           accept='image/jpg, image/jpeg, image/png'
           style={{ display: 'none' }} // Hide the actual input

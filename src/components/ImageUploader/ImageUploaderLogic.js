@@ -2,16 +2,11 @@ import { useState, useCallback } from 'react';
 const UploadFileHelper = require('../../helpers/UploadFileHelper');
 
 const ImageUploaderLogic = ({ onSaveImg }) => {
-  const [files, setFiles] = useState([]);
-  const saveFiles = (e) => {
-    setFiles(e.target.files);
-  };
-
   // Upload of files
   const [loading, setLoading] = useState(false);
   const uploadFile = (e) => {
     setLoading(true);
-    UploadFileHelper.upload(files, false, (res) => {
+    UploadFileHelper.upload(e.target.files, false, (res) => {
       setLoading(false);
       onSaveImg(res.data.imageUuid);
     });
@@ -28,10 +23,10 @@ const ImageUploaderLogic = ({ onSaveImg }) => {
 
   // Check if input camera is supported
   const supportedPattern = /iPhone|iPad|iPod/i;
-  const inputCamSupported = supportedPattern.test(navigator.userAgent) || true;
+  const inputCamSupported = supportedPattern.test(navigator.userAgent);
+  // TODO : manage the case when only upload available
 
   return {
-    saveFiles,
     uploadFile,
     loading,
     openCam,
