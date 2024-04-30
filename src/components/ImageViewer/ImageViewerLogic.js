@@ -1,7 +1,10 @@
 import {} from 'react-router-dom';
 
 const ImageViewerLogic = ({ images, from, to }) => {
-  return {};
+  const imgGrps = images ? [images] : [];
+  return {
+    imgGrps,
+  };
 };
 
 export default ImageViewerLogic;

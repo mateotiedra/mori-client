@@ -6,6 +6,8 @@ import { TextField, Typography } from '@mui/material';
 import ImageUploader from '../../components/ImageUploader/ImageUploader';
 import HomeLogic from './HomeLogic';
 import Navbar from '../../components/Navbar/Navbar';
+import ImageViewer from '../../components/ImageViewer/ImageViewer';
+import EmptySpace from '../../components/EmptySpace/EmptySpace';
 
 function Home() {
   const {
@@ -14,6 +16,7 @@ function Home() {
     onSubmit,
     phoneRegistration,
     phoneErrorMessage,
+    ...homeLogic
   } = HomeLogic();
 
   if (pageStatus === 'loading')
@@ -40,6 +43,8 @@ function Home() {
         <Navbar>
           <ImageUploader onSaveImg={onSaveImg} />
         </Navbar>
+        <EmptySpace />
+        <ImageViewer images={homeLogic.latestImages} />
       </>
     );
 }

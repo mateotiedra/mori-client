@@ -12,13 +12,16 @@ const HomeLogic = () => {
     axios
       .get(API_ORIGIN + 'image/latest', { params: { eventId: 1 } })
       .then((res) => {
-        console.log(res.data);
+        setLatestImages(res.data);
         setPageStatus('idle');
       })
       .catch((err) => {
         console.log(err);
       });
   });
+
+  // Latest images
+  const [latestImages, setLatestImages] = useState([]);
 
   // Add owner to image
   const addOwner = useCallback(
@@ -100,6 +103,7 @@ const HomeLogic = () => {
     phoneRegistration,
     onSubmit: handleSubmit(onSubmit),
     phoneErrorMessage: errors.phone?.message || phoneErrorMessage,
+    latestImages,
   };
 };
 

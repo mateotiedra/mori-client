@@ -58,28 +58,6 @@ function Navbar({ coverPage, empty, children }) {
           >
             {children}
           </Box>
-          {/* <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              height: 90,
-            }}
-            component='a'
-            href='www.lumm.love'
-          >
-            <Typography
-              variant='h1'
-              sx={{
-                textDecoration: 'none',
-                color: 'white',
-                textTransform: 'uppercase',
-                fontSize: 44,
-              }}
-            >
-              Morii
-            </Typography>
-          </Box> */}
         </Container>
       </AppBar>
       {!coverPage && (
