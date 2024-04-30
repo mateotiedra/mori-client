@@ -4,6 +4,7 @@ const Palette = () => {
   const BLACK = '#08080C';
   const NIGHT = '#0C0C12';
   const GHOST_WHITE = '#F0F0F8';
+  const GHOST_BLACK = '#121212';
   const RED = '#DC0028';
   const SPACE_CADET = '#3C3C50';
   const STEEL_BLUE = '#0A81D1';
@@ -19,6 +20,7 @@ const Palette = () => {
     SPACE_CADET,
     STEEL_BLUE,
     LUMM_RED,
+    GHOST_BLACK,
   };
 };
 

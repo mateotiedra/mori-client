@@ -11,7 +11,7 @@ let theme = createTheme({
       main: palette.GHOST_WHITE,
     },
     background: {
-      default: palette.BLACK,
+      default: palette.GHOST_BLACK,
     },
     text: {
       primary: '#FFFFFF',

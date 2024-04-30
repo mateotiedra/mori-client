@@ -22,7 +22,6 @@ function Navbar({ coverPage, empty, children }) {
           backdropFilter: 'blur(10px)',
           position: 'fixed',
           //backgroundColor: 'rgba(255, 255, 255, 0.7)',
-          bottom: empty ? 'auto' : { xs: 0, sm: 0, md: 'auto' },
         }}
       >
         <Container
