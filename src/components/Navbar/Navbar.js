@@ -86,7 +86,7 @@ function Navbar({ coverPage, empty, children }) {
         <Box
           sx={{
             height: 90,
-            display: { xs: 'none', sm: 'none', md: 'block' },
+            width: '100%',
           }}
         />
       )}
