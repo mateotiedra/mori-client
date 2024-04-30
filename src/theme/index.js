@@ -1,4 +1,4 @@
-import { createTheme /* responsiveFontSizes */ } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import Palette from './palette';
 
 const palette = Palette();
@@ -6,61 +6,57 @@ const palette = Palette();
 // Manage the website theme
 let theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
-      main: palette.STEEL_BLUE,
+      main: palette.RED,
     },
     background: {
-      //default: palette.BLACK,
+      default: palette.BLACK,
     },
-    error: {
-      main: palette.RED,
+    text: {
+      primary: '#FFFFFF',
     },
   },
   typography: {
-    fontFamily: '"Lato", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Karla", "Helvetica", "Arial", sans-serif',
     fontSize: 16,
     h1: {
-      fontFamily: '"Lato", "Helvetica", "Arial", sans-serif',
+      fontFamily: '"Chillax-Variable", "Helvetica", "Arial", sans-serif',
       fontWeight: 600,
       fontSize: 60,
       letterSpacing: '-4%',
       lineHeight: 1.2,
     },
     h2: {
-      fontFamily: '"Lato", "Helvetica", "Arial", sans-serif',
+      fontFamily: '"Chillax-Variable", "Helvetica", "Arial", sans-serif',
       fontWeight: 600,
       fontSize: 48,
       letterSpacing: '-4%',
       lineHeight: 1.25,
     },
     h3: {
-      fontFamily: '"Lato", "Helvetica", "Arial", sans-serif',
+      fontFamily: '"Chillax-Variable", "Helvetica", "Arial", sans-serif',
       fontWeight: 700,
       fontSize: 32,
       lineHeight: 1.125,
     },
     h4: {
-      fontFamily: '"Lato", "Helvetica", "Arial", sans-serif',
+      fontFamily: '"Chillax-Variable", "Helvetica", "Arial", sans-serif',
       fontWeight: 700,
       fontSize: 24,
       lineHeight: 4 / 3,
     },
-    // p 24px || p large
+    // p 24px
     body1: {
       fontFamily: '"Outfit", "Helvetica", "Arial", sans-serif',
       fontSize: 24,
       lineHeight: 4 / 3,
     },
-    // p 20px  || p medium
+    // p 20px
     body2: {
       fontFamily: '"Outfit", "Helvetica", "Arial", sans-serif',
       fontSize: 20,
       lineHeight: 1.2,
-    },
-    body3: {
-      fontFamily: '"Outfit", "Helvetica", "Arial", sans-serif',
-      fontSize: 16,
-      lineHeight: 1.25,
     },
     // label 20px
     subtitle1: {
@@ -85,7 +81,6 @@ let theme = createTheme({
       fontSize: 14,
       lineHeight: 1.29,
       letterSpacing: '8%',
-      textTransform: 'uppercase',
     },
     button: {
       fontFamily: '"Outfit", "Helvetica", "Arial", sans-serif',
@@ -109,12 +104,12 @@ let theme = createTheme({
     },
     MuiButtonBase: {
       defaultProps: {
-        //disableRipple: true,
+        disableRipple: true,
       },
     },
     MuiButton: {
       defaultProps: {
-        //disableElevation: true,
+        disableElevation: true,
       },
       styleOverrides: {
         root: {

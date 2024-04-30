@@ -5,6 +5,7 @@ import { TextField, Typography } from '@mui/material';
 
 import ImageUploader from '../../components/ImageUploader/ImageUploader';
 import HomeLogic from './HomeLogic';
+import Navbar from '../../components/Navbar/Navbar';
 
 function Home() {
   const {
@@ -36,9 +37,8 @@ function Home() {
   if (pageStatus === 'idle')
     return (
       <>
-        <Typography variant='h1' align='center'>
-          Home
-        </Typography>
+        <Navbar />
+
         <ImageUploader onSaveImg={onSaveImg} />
       </>
     );
