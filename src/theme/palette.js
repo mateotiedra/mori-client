@@ -7,6 +7,8 @@ const Palette = () => {
   const RED = '#DC0028';
   const SPACE_CADET = '#3C3C50';
   const STEEL_BLUE = '#0A81D1';
+  const LUMM_RED = '#CD181B';
+
   return {
     STATE_GREY,
     BLACK,
@@ -16,6 +18,7 @@ const Palette = () => {
     FRENCH_GREY,
     SPACE_CADET,
     STEEL_BLUE,
+    LUMM_RED,
   };
 };
 

@@ -5,9 +5,9 @@ import React from 'react';
 import { AppBar, Container, Box } from '@mui/material';
 //import { HashLink as RouterLink } from 'react-router-hash-link';
 
-import LummLogo from '../../assets/images/lumm-c-jersey-design-red-empty-bkg.png';
+import LummLogo from '../../assets/images/lumm-c-jersey-design-white-empty-bkg.png';
 
-function Navbar({ coverPage, empty }) {
+function Navbar({ coverPage, empty, children }) {
   return (
     <>
       <AppBar
@@ -41,11 +41,23 @@ function Navbar({ coverPage, empty }) {
               flexDirection: 'row',
               alignItems: 'center',
               height: 90,
+              position: 'relative',
+              top: -5,
             }}
             component='a'
             href='https://www.lumm.love'
           >
             <Box sx={{ height: 50 }} component='img' src={LummLogo} />
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              height: 90,
+            }}
+          >
+            {children}
           </Box>
           {/* <Box
             sx={{

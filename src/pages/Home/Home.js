@@ -37,9 +37,9 @@ function Home() {
   if (pageStatus === 'idle')
     return (
       <>
-        <Navbar />
-
-        <ImageUploader onSaveImg={onSaveImg} />
+        <Navbar>
+          <ImageUploader onSaveImg={onSaveImg} />
+        </Navbar>
       </>
     );
 }

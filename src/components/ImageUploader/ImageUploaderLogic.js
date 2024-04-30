@@ -28,7 +28,7 @@ const ImageUploaderLogic = ({ onSaveImg }) => {
 
   // Check if input camera is supported
   const supportedPattern = /iPhone|iPad|iPod/i;
-  const inputCamSupported = supportedPattern.test(navigator.userAgent);
+  const inputCamSupported = supportedPattern.test(navigator.userAgent) || true;
 
   return {
     saveFiles,

@@ -8,8 +8,16 @@ import { API_ORIGIN } from '../../config/AppConfig';
 const HomeLogic = () => {
   const { useLoadPage, pageStatus, setPageStatus } = PageLogicHelper();
 
-  useLoadPage(async () => {
-    setPageStatus('idle');
+  useLoadPage(() => {
+    axios
+      .get(API_ORIGIN + 'image/latest', { params: { eventId: 1 } })
+      .then((res) => {
+        console.log(res.data);
+        setPageStatus('idle');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
   // Add owner to image

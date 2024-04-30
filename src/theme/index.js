@@ -8,7 +8,7 @@ let theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: palette.RED,
+      main: palette.GHOST_WHITE,
     },
     background: {
       default: palette.BLACK,
@@ -113,9 +113,10 @@ let theme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderRadius: 26,
+          borderRadius: 10,
           padding: '16px 26px',
           height: '44px',
+          border: '2px solid',
         },
       },
     },
