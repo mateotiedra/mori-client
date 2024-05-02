@@ -8,20 +8,35 @@ import { API_ORIGIN } from '../../config/AppConfig';
 const HomeLogic = () => {
   const { useLoadPage, pageStatus, setPageStatus } = PageLogicHelper();
 
-  useLoadPage(() => {
-    axios
-      .get(API_ORIGIN + 'image/latest', { params: { eventId: 1 } })
-      .then((res) => {
-        setLatestImages(res.data);
-        setPageStatus('idle');
-      })
-      .catch((err) => {
-        console.log(err);
+  useLoadPage(async () => {
+    let event;
+    try {
+      const res = await axios.get(API_ORIGIN + 'event', {
+        params: { eventId: 1 },
       });
+      event = res.data;
+      setEvent(event);
+    } catch (err) {
+      console.log(err);
+    }
+
+    try {
+      const res = await axios.get(API_ORIGIN + 'image/latest', {
+        params: { eventId: event.id },
+      });
+      setLatestImages(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+
+    setPageStatus('idle');
   });
 
   // Latest images
   const [latestImages, setLatestImages] = useState([]);
+
+  // Event
+  const [event, setEvent] = useState();
 
   // Add owner to image
   const addOwner = useCallback(
@@ -104,6 +119,7 @@ const HomeLogic = () => {
     onSubmit: handleSubmit(onSubmit),
     phoneErrorMessage: errors.phone?.message || phoneErrorMessage,
     latestImages,
+    event,
   };
 };
 
