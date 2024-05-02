@@ -28,7 +28,6 @@ const HomeLogic = () => {
     } catch (err) {
       console.log(err);
     }
-
     setPageStatus('idle');
   });
 
@@ -112,6 +111,13 @@ const HomeLogic = () => {
   });
   const [phoneErrorMessage, setPhoneErrorMessage] = useState();
 
+  // Image viewer
+  const imageViewerProps = {
+    images: latestImages,
+    start: new Date(event?.startAt),
+    end: new Date(event?.endAt),
+  };
+
   return {
     pageStatus,
     onSaveImg,
@@ -120,6 +126,7 @@ const HomeLogic = () => {
     phoneErrorMessage: errors.phone?.message || phoneErrorMessage,
     latestImages,
     event,
+    imageViewerProps,
   };
 };
 

@@ -16,7 +16,7 @@ function Home() {
     onSubmit,
     phoneRegistration,
     phoneErrorMessage,
-    ...homeLogic
+    imageViewerProps,
   } = HomeLogic();
 
   if (pageStatus === 'loading')
@@ -45,9 +45,9 @@ function Home() {
         </Navbar>
         <EmptySpace />
         <ImageViewer
-          images={homeLogic.latestImages}
-          start={homeLogic.event.startAt}
-          end={homeLogic.event.endAt}
+          start={imageViewerProps.start}
+          end={imageViewerProps.end}
+          images={imageViewerProps.images}
           timeFrame={30}
         />
       </>

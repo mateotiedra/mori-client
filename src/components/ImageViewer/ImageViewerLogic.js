@@ -5,8 +5,8 @@ const ImageViewerLogic = ({ images, start, end, timeFrame }) => {
   const [imgGrps, setImgGrps] = useState([]);
   useEffect(() => {
     const now = new Date(/* '2024-05-03 02:30:44' */);
-    const to = new Date(end);
     const from = new Date(start);
+    const to = new Date(end);
 
     if (now < from) return;
 
