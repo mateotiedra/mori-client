@@ -29,7 +29,7 @@ function ImageUploader({ onSaveImg }) {
           type='file'
           onChange={uploadFile}
           multiple
-          accept='image/jpg, image/jpeg, image/png'
+          accept='image/jpg, image/jpeg'
           style={{ display: 'none' }} // Hide the actual input
           id='contained-button-file' // Add an id to reference it with the label
         />

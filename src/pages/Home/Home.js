@@ -44,7 +44,12 @@ function Home() {
           <ImageUploader onSaveImg={onSaveImg} />
         </Navbar>
         <EmptySpace />
-        <ImageViewer images={homeLogic.latestImages} />
+        <ImageViewer
+          images={homeLogic.latestImages}
+          start={homeLogic.event.startAt}
+          end={homeLogic.event.endAt}
+          timeFrame={30}
+        />
       </>
     );
 }
