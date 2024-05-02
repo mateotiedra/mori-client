@@ -43,7 +43,7 @@ const HomeLogic = () => {
     (xAccessToken, givenImageUuid) => {
       axios
         .put(
-          API_ORIGIN + 'image/addowner',
+          API_ORIGIN + '/image/addowner',
           { imageUuid: givenImageUuid },
           {
             headers: {
@@ -99,7 +99,7 @@ const HomeLogic = () => {
   } = useForm();
   const onSubmit = ({ phone }) => {
     axios
-      .post(API_ORIGIN + 'phoneuser/register', { phone })
+      .post(API_ORIGIN + '/phoneuser/register', { phone })
       .then((res) => {
         localStorage.setItem('x-access-token', res.data.accessToken);
         addOwner(res.data.accessToken, imageUuid);
