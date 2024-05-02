@@ -21,6 +21,7 @@ function Home() {
     phoneErrorMessage,
     imageViewerProps,
     onStartImgUpload,
+    uploadMode,
   } = HomeLogic();
 
   if (pageStatus === 'loading') return <Loading />;
@@ -64,6 +65,7 @@ function Home() {
           <ImageUploader
             onStartUpload={onStartImgUpload}
             onFinishUpload={onSaveImg}
+            uploadMode={'gallery'}
           />
         </Navbar>
         <EmptySpace />

@@ -7,7 +7,7 @@ import MoriCam from '../MoriCam/MoriCam';
 import ImageUploaderLogic from './ImageUploaderLogic';
 import Palette from '../../theme/palette';
 
-function ImageUploader({ onStartUpload, onFinishUpload }) {
+function ImageUploader({ onStartUpload, onFinishUpload, uploadMode }) {
   const { uploadFile, openCam, onCloseCam, camIsOpen, inputCamSupported } =
     ImageUploaderLogic({ onStartUpload, onFinishUpload });
 
@@ -32,6 +32,7 @@ function ImageUploader({ onStartUpload, onFinishUpload }) {
           accept='image/jpg, image/jpeg'
           style={{ display: 'none' }} // Hide the actual input
           id='contained-button-file' // Add an id to reference it with the label
+          capture={false}
         />
         <Box
           component='label'
@@ -40,17 +41,18 @@ function ImageUploader({ onStartUpload, onFinishUpload }) {
             display: 'flex',
             py: 1,
             pl: 4,
-            pr: inputCamSupported ? 4 : 3,
+            pr: uploadMode === 'both' ? 3 : 4,
             cursor: 'pointer',
           }}
         >
-          {inputCamSupported ? (
+          {uploadMode === 'cam' ? (
             <TiCamera color={palette.GHOST_WHITE} size={30} />
           ) : (
             <TiImage color={palette.GHOST_WHITE} size={30} />
           )}
         </Box>
-        {!inputCamSupported && (
+
+        {uploadMode === 'both' && (
           <>
             <Box
               sx={{
@@ -64,7 +66,7 @@ function ImageUploader({ onStartUpload, onFinishUpload }) {
               sx={{
                 display: 'flex',
                 py: 1,
-                pl: 3,
+                pl: uploadMode === 'both' ? 3 : 4,
                 pr: 4,
                 cursor: 'pointer',
               }}
