@@ -1,7 +1,9 @@
-import { Box, Container, Typography } from '@mui/material';
 import React from 'react';
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { HashLink as RouterLink } from 'react-router-hash-link';
+import { Box, Container, Typography } from '@mui/material';
+
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function ImageGroup({ images, title }) {
@@ -37,6 +39,8 @@ function ImageGroup({ images, title }) {
                 overflow: 'hidden',
                 borderRadius: '10px',
               }}
+              component={RouterLink}
+              to='/image'
             >
               <LazyLoadImage
                 src={image.url}

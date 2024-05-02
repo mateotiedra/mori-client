@@ -11,7 +11,7 @@ const HomeLogic = () => {
   useLoadPage(async () => {
     let event;
     try {
-      const res = await axios.get(API_ORIGIN + 'event', {
+      const res = await axios.get(API_ORIGIN + '/event', {
         params: { eventId: 1 },
       });
       event = res.data;
@@ -21,7 +21,7 @@ const HomeLogic = () => {
     }
 
     try {
-      const res = await axios.get(API_ORIGIN + 'image/latest', {
+      const res = await axios.get(API_ORIGIN + '/image/latest', {
         params: { eventId: event.id },
       });
       setLatestImages(res.data);
