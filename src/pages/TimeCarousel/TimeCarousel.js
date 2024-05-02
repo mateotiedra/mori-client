@@ -24,7 +24,9 @@ function TimeCarousel() {
     images,
     fullScreen,
     toggleFullScreen,
-    initialSlide,
+    slidId,
+    onSwipeImg,
+    imgName,
   } = TimeCarouselLogic();
 
   const palette = Palette();
@@ -38,8 +40,12 @@ function TimeCarousel() {
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 200,
-    initialSlide,
+    initialSlide: slidId,
+    onSwipe: onSwipeImg,
   };
+
+  console.log(imgName);
+
   if (pageStatus === 'idle')
     return (
       <Box
@@ -74,6 +80,9 @@ function TimeCarousel() {
                 right: 15,
                 zIndex: 100,
               }}
+              component='a'
+              href={images[slidId].url}
+              download={imgName}
             >
               <TiDownload color={palette.GHOST_WHITE} size={30} />
             </Button>

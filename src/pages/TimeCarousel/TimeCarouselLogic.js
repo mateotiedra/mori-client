@@ -28,7 +28,7 @@ const TimeCarouselLogic = () => {
 
       res.data.forEach((image, index) => {
         if (image.uuid === params.uuid) {
-          setInitialSlide(index);
+          setSlideId(index);
         }
       });
     } catch (err) {
@@ -37,7 +37,7 @@ const TimeCarouselLogic = () => {
 
     setPageStatus('idle');
   });
-  const [initialSlide, setInitialSlide] = useState(0);
+  const [slidId, setSlideId] = useState(0);
 
   // Manage full screen
   function requestFullscreen(element) {
@@ -80,13 +80,27 @@ const TimeCarouselLogic = () => {
     };
   }, []);
 
-  // Images
-  const [images, setImages] = useState([]);
-
   // Go back function
   const quitPage = () => {
     window.history.length > 1 ? navigate(-1) : navigate('/');
   };
+
+  // Images
+  const [images, setImages] = useState([]);
+
+  // Swipe image
+  const onSwipeImg = (direction) => {
+    if (direction === 'left') {
+      if (slidId < images.length - 1) {
+        setSlideId(slidId + 1);
+      }
+    } else {
+      if (slidId > 0) {
+        setSlideId(slidId - 1);
+      }
+    }
+  };
+  const imgName = 'LUMMC' + images[slidId]?.postedAt.split('.')[0];
 
   return {
     pageStatus,
@@ -94,7 +108,9 @@ const TimeCarouselLogic = () => {
     fullScreen,
     toggleFullScreen,
     quitPage,
-    initialSlide,
+    slidId,
+    onSwipeImg,
+    imgName,
   };
 };
 
