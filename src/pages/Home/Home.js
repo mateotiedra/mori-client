@@ -51,7 +51,7 @@ function Home() {
           </Typography>
           <Divider variant='middle' sx={{ my: 3 }} />
           <Button onClick={dontParticipate} fullWidth variant='contained'>
-            Je ne participer pas
+            Je ne participe pas
           </Button>
         </form>
       </SectionContainer>
