@@ -5,12 +5,7 @@ import { Box, Button } from '@mui/material';
 
 import Loading from '../Loading/Loading';
 import Slider from 'react-slick';
-import {
-  TiArrowBack,
-  TiChevronLeft,
-  TiBackspace,
-  TiDownload,
-} from 'react-icons/ti';
+import { TiChevronLeft, TiDownload } from 'react-icons/ti';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -36,7 +31,6 @@ function TimeCarousel() {
   const sliderSettings = {
     dots: false,
     infinite: false,
-    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 200,

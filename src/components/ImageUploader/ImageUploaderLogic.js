@@ -20,17 +20,11 @@ const ImageUploaderLogic = ({ onStartUpload, onFinishUpload }) => {
     setCamIsOpen(false);
   }, [setCamIsOpen]);
 
-  // Check if input camera is supported
-  const supportedPattern = /iPhone|iPad|iPod/i;
-  const inputCamSupported = supportedPattern.test(navigator.userAgent);
-  // TODO : manage the case when only upload available
-
   return {
     uploadFile,
     openCam,
     onCloseCam,
     camIsOpen,
-    inputCamSupported,
   };
 };
 

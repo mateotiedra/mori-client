@@ -8,8 +8,10 @@ import ImageUploaderLogic from './ImageUploaderLogic';
 import Palette from '../../theme/palette';
 
 function ImageUploader({ onStartUpload, onFinishUpload, uploadMode }) {
-  const { uploadFile, openCam, onCloseCam, camIsOpen, inputCamSupported } =
-    ImageUploaderLogic({ onStartUpload, onFinishUpload });
+  const { uploadFile, openCam, onCloseCam, camIsOpen } = ImageUploaderLogic({
+    onStartUpload,
+    onFinishUpload,
+  });
 
   const palette = Palette();
 
