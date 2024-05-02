@@ -64,7 +64,12 @@ const HomeLogic = () => {
     [setPageStatus]
   );
 
-  // After uploading the image
+  // Uploading the image
+  const onStartImgUpload = useCallback(() => {
+    console.log('Uploading image...');
+    setPageStatus('loading');
+  }, [setPageStatus]);
+
   const [imageUuid, setImageUuid] = useState(null);
   const onSaveImg = useCallback(
     (imageUuid) => {
@@ -127,6 +132,7 @@ const HomeLogic = () => {
     latestImages,
     event,
     imageViewerProps,
+    onStartImgUpload,
   };
 };
 

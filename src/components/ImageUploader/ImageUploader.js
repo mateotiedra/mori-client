@@ -7,9 +7,9 @@ import MoriCam from '../MoriCam/MoriCam';
 import ImageUploaderLogic from './ImageUploaderLogic';
 import Palette from '../../theme/palette';
 
-function ImageUploader({ onSaveImg }) {
+function ImageUploader({ onStartUpload, onFinishUpload }) {
   const { uploadFile, openCam, onCloseCam, camIsOpen, inputCamSupported } =
-    ImageUploaderLogic({ onSaveImg });
+    ImageUploaderLogic({ onStartUpload, onFinishUpload });
 
   const palette = Palette();
 
@@ -75,7 +75,7 @@ function ImageUploader({ onSaveImg }) {
             <MoriCam
               onCloseCam={onCloseCam}
               open={camIsOpen}
-              onSaveImg={onSaveImg}
+              onSaveImg={onFinishUpload}
             />
           </>
         )}

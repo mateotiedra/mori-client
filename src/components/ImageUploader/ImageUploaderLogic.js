@@ -1,14 +1,13 @@
 import { useState, useCallback } from 'react';
 const UploadFileHelper = require('../../helpers/UploadFileHelper');
 
-const ImageUploaderLogic = ({ onSaveImg }) => {
+const ImageUploaderLogic = ({ onStartUpload, onFinishUpload }) => {
   // Upload of files
-  const [loading, setLoading] = useState(false);
   const uploadFile = (e) => {
-    setLoading(true);
+    onStartUpload && onStartUpload();
     UploadFileHelper.upload(e.target.files, false, (res) => {
-      setLoading(false);
-      onSaveImg(res.data.imageUuid);
+      onStartUpload && onStartUpload();
+      onFinishUpload && onFinishUpload(res.data.imageUuid);
     });
   };
 
@@ -28,7 +27,6 @@ const ImageUploaderLogic = ({ onSaveImg }) => {
 
   return {
     uploadFile,
-    loading,
     openCam,
     onCloseCam,
     camIsOpen,

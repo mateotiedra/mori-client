@@ -8,6 +8,7 @@ import HomeLogic from './HomeLogic';
 import Navbar from '../../components/Navbar/Navbar';
 import ImageViewer from '../../components/ImageViewer/ImageViewer';
 import EmptySpace from '../../components/EmptySpace/EmptySpace';
+import Loading from '../Loading/Loading';
 
 function Home() {
   const {
@@ -17,14 +18,10 @@ function Home() {
     phoneRegistration,
     phoneErrorMessage,
     imageViewerProps,
+    onStartImgUpload,
   } = HomeLogic();
 
-  if (pageStatus === 'loading')
-    return (
-      <Typography variant='h1' align='center'>
-        Loading...
-      </Typography>
-    );
+  if (pageStatus === 'loading') return <Loading />;
 
   if (pageStatus === 'register')
     return (
@@ -41,7 +38,10 @@ function Home() {
     return (
       <>
         <Navbar>
-          <ImageUploader onSaveImg={onSaveImg} />
+          <ImageUploader
+            onStartUpload={onStartImgUpload}
+            onFinishUpload={onSaveImg}
+          />
         </Navbar>
         <EmptySpace />
         <ImageViewer
