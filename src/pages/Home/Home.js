@@ -65,7 +65,7 @@ function Home() {
           <ImageUploader
             onStartUpload={onStartImgUpload}
             onFinishUpload={onSaveImg}
-            uploadMode={'gallery'}
+            uploadMode={uploadMode}
           />
         </Navbar>
         <EmptySpace />
