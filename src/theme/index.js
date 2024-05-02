@@ -84,10 +84,9 @@ let theme = createTheme({
     },
     button: {
       fontFamily: '"Outfit", "Helvetica", "Arial", sans-serif',
-      fontWeight: 700,
-      fontSize: 14,
+      fontSize: 24,
       lineHeight: 1.29,
-      letterSpacing: '8%',
+      textTransform: 'none',
     },
     countdown: {
       fontFamily: '"Outfit", "Helvetica", "Arial", sans-serif',
@@ -114,8 +113,6 @@ let theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 10,
-          padding: '16px 26px',
-          height: '44px',
           border: '2px solid',
         },
       },
@@ -123,7 +120,7 @@ let theme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          borderRadius: 26,
+          borderRadius: 10,
           backgroundColor: 'white',
           outline: 'none',
           height: '44px',
@@ -133,9 +130,13 @@ let theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 25,
+          borderRadius: 10,
           color: 'black',
           height: '46px',
+          backgroundColor: palette.GHOST_WHITE,
+        },
+        input: {
+          textAlign: 'center', // Center the text
         },
       },
     },
