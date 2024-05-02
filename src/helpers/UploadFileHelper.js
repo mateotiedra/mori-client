@@ -29,7 +29,7 @@ export const upload = (files, liveShot, next) => {
   liveShot && formData.append('liveShot', liveShot);
 
   axios
-    .post(API_ORIGIN + 'image', formData, {
+    .post(API_ORIGIN + '/image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
