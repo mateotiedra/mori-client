@@ -4,7 +4,7 @@ import {} from 'react-router-dom';
 const ImageViewerLogic = ({ images, start, end, timeFrame }) => {
   const [imgGrps, setImgGrps] = useState([]);
   useEffect(() => {
-    const now = new Date(/* '2024-05-03 02:30:44' */);
+    const now = new Date();
     const from = new Date(start);
     const to = new Date(end);
 

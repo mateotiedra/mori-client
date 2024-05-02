@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 import { API_ORIGIN } from '../../config/AppConfig';
@@ -72,7 +72,11 @@ const HomeLogic = () => {
 
   const [imageUuid, setImageUuid] = useState(null);
   const onSaveImg = useCallback(
-    (imageUuid) => {
+    (img) => {
+      // Add image to latest images
+      setLatestImages((prev) => [img, ...prev]);
+
+      // Check if user is already registered
       const xAccessToken = localStorage.getItem('x-access-token');
       if (xAccessToken) {
         addOwner(xAccessToken, imageUuid);
@@ -80,11 +84,11 @@ const HomeLogic = () => {
         // chose not to register
         setPageStatus('idle');
       } else {
-        setImageUuid(imageUuid);
+        setImageUuid(img.uuid);
         setPageStatus('register');
       }
     },
-    [setPageStatus, addOwner, setImageUuid]
+    [setPageStatus, addOwner, setImageUuid, setLatestImages]
   );
 
   // Register phone number
