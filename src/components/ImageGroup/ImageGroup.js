@@ -1,6 +1,9 @@
 import { Box, Container, Typography } from '@mui/material';
 import React from 'react';
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 function ImageGroup({ images, title }) {
   return (
     <Container
@@ -35,7 +38,7 @@ function ImageGroup({ images, title }) {
                 borderRadius: '10px',
               }}
             >
-              <img
+              <LazyLoadImage
                 src={image.url}
                 alt='img'
                 style={{
