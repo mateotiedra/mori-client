@@ -66,7 +66,6 @@ const HomeLogic = () => {
 
   // Uploading the image
   const onStartImgUpload = useCallback(() => {
-    console.log('Uploading image...');
     setPageStatus('loading');
   }, [setPageStatus]);
 
@@ -116,6 +115,12 @@ const HomeLogic = () => {
   });
   const [phoneErrorMessage, setPhoneErrorMessage] = useState();
 
+  // Don't participate
+  const dontParticipate = useCallback(() => {
+    localStorage.setItem('cntr', 'true');
+    setPageStatus('idle');
+  }, [setPageStatus]);
+
   // Image viewer
   const imageViewerProps = {
     images: latestImages,
@@ -133,6 +138,7 @@ const HomeLogic = () => {
     event,
     imageViewerProps,
     onStartImgUpload,
+    dontParticipate,
   };
 };
 
