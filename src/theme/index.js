@@ -10,11 +10,14 @@ let theme = createTheme({
     primary: {
       main: palette.GHOST_WHITE,
     },
+    secondary: {
+      main: palette.GHOST_BLACK,
+    },
     background: {
       default: palette.GHOST_BLACK,
     },
     text: {
-      primary: '#FFFFFF',
+      primary: palette.GHOST_WHITE,
     },
   },
   typography: {
@@ -112,8 +115,9 @@ let theme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderRadius: 10,
-          border: '2px solid',
+          borderRadius: 15,
+          border: '2px',
+          padding: '12px 25px',
         },
       },
     },

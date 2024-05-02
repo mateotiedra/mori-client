@@ -12,7 +12,7 @@ function App() {
       <ErrorHandlerWrapper>
         <Routes>
           <Route path='/' default element={<Home />} />
-          <Route path='/image' default element={<TimeCarousel />} />
+          <Route path='/image/:uuid' default element={<TimeCarousel />} />
         </Routes>
       </ErrorHandlerWrapper>
     </Router>

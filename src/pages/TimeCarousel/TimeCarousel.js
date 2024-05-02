@@ -3,15 +3,31 @@ import React from 'react';
 //import { HashLink, HashLink as RouterLink } from 'react-router-hash-link';
 import { Box, Button } from '@mui/material';
 
-import TimeCarouselLogic from './TimeCarouselLogic';
 import Loading from '../Loading/Loading';
 import Slider from 'react-slick';
+import {
+  TiArrowBack,
+  TiChevronLeft,
+  TiBackspace,
+  TiDownload,
+} from 'react-icons/ti';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { TiDownload } from 'react-icons/ti';
+
+import Palette from '../../theme/palette';
+import TimeCarouselLogic from './TimeCarouselLogic';
 
 function TimeCarousel() {
-  const { pageStatus, onQuit, images } = TimeCarouselLogic();
+  const {
+    pageStatus,
+    quitPage,
+    images,
+    fullScreen,
+    toggleFullScreen,
+    initialSlide,
+  } = TimeCarouselLogic();
+
+  const palette = Palette();
 
   if (pageStatus === 'loading') return <Loading />;
 
@@ -22,6 +38,7 @@ function TimeCarousel() {
     slidesToShow: 1,
     slidesToScroll: 1,
     speed: 200,
+    initialSlide,
   };
   if (pageStatus === 'idle')
     return (
@@ -33,24 +50,55 @@ function TimeCarousel() {
           position: 'relative',
         }}
       >
-        <Slider {...sliderSettings}>
-          {images.map((image, index) => {
-            return (
-              <div key={index}>
-                <img
-                  key={index}
-                  src={image.url}
-                  alt='img'
-                  style={{
-                    width: '100vw',
-                    height: '100vh',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-            );
-          })}
-        </Slider>
+        {!fullScreen && (
+          <>
+            <Button
+              variant='contained'
+              color='secondary'
+              sx={{
+                position: 'absolute',
+                top: 15,
+                left: 15,
+                zIndex: 100,
+              }}
+              onClick={quitPage}
+            >
+              <TiChevronLeft color={palette.GHOST_WHITE} size={30} />
+            </Button>
+            <Button
+              variant='contained'
+              color='secondary'
+              sx={{
+                position: 'absolute',
+                bottom: 15,
+                right: 15,
+                zIndex: 100,
+              }}
+            >
+              <TiDownload color={palette.GHOST_WHITE} size={30} />
+            </Button>
+          </>
+        )}
+        <Box onClick={toggleFullScreen}>
+          <Slider {...sliderSettings}>
+            {images.map((image, index) => {
+              return (
+                <div key={index}>
+                  <img
+                    key={index}
+                    src={image.url}
+                    alt='img'
+                    style={{
+                      width: '100vw',
+                      height: '100vh',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </Slider>
+        </Box>
       </Box>
     );
 }

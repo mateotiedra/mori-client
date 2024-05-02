@@ -7,7 +7,7 @@ import { AppBar, Container, Box } from '@mui/material';
 
 import LummLogo from '../../assets/images/lumm-c-jersey-design-white-empty-bkg.png';
 
-function Navbar({ coverPage, empty, children }) {
+function Navbar({ coverPage, empty, children, height, hideLogo }) {
   return (
     <>
       <AppBar
@@ -21,7 +21,7 @@ function Navbar({ coverPage, empty, children }) {
           alignItems: 'center',
           backdropFilter: 'blur(10px)',
           position: 'fixed',
-          //backgroundColor: 'rgba(255, 255, 255, 0.7)',
+          backgroundColor: 'rgba(18, 18, 18, 0.8)',
         }}
       >
         <Container
@@ -34,26 +34,28 @@ function Navbar({ coverPage, empty, children }) {
             position: 'relative',
           }}
         >
+          {!hideLogo && (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                height: height || 90,
+                position: 'relative',
+                top: -5,
+              }}
+              component='a'
+              href='https://www.lumm.love'
+            >
+              <Box sx={{ height: 50 }} component='img' src={LummLogo} />
+            </Box>
+          )}
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              height: 90,
-              position: 'relative',
-              top: -5,
-            }}
-            component='a'
-            href='https://www.lumm.love'
-          >
-            <Box sx={{ height: 50 }} component='img' src={LummLogo} />
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              height: 90,
+              height: height || 90,
             }}
           >
             {children}
@@ -63,7 +65,7 @@ function Navbar({ coverPage, empty, children }) {
       {!coverPage && (
         <Box
           sx={{
-            height: 90,
+            height: height || 90,
             width: '100%',
           }}
         />

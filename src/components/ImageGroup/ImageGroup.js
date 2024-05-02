@@ -26,34 +26,31 @@ function ImageGroup({ images, title }) {
         <Typography variant='h1' sx={{ width: '100%' }}>
           {title}
         </Typography>
-
-        {images.map((image, index) => {
-          return (
-            <Box
-              key={index}
-              sx={{
-                position: 'relative',
+        {images.map((image, index) => (
+          <Box
+            key={index}
+            sx={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '100px',
+              height: '180px',
+              overflow: 'hidden',
+              borderRadius: '10px',
+            }}
+            component={RouterLink}
+            to={'/image/' + image.uuid}
+          >
+            <LazyLoadImage
+              src={image.url}
+              alt='img'
+              style={{
                 width: '100%',
-                maxWidth: '100px',
-                height: '180px',
-                overflow: 'hidden',
-                borderRadius: '10px',
+                height: '100%',
+                objectFit: 'cover',
               }}
-              component={RouterLink}
-              to='/image'
-            >
-              <LazyLoadImage
-                src={image.url}
-                alt='img'
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
-              />
-            </Box>
-          );
-        })}
+            />
+          </Box>
+        ))}
       </Box>
     </Container>
   );

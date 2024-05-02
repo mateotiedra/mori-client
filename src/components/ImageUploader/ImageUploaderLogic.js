@@ -7,7 +7,7 @@ const ImageUploaderLogic = ({ onStartUpload, onFinishUpload }) => {
     onStartUpload && onStartUpload();
     UploadFileHelper.upload(e.target.files, false, (res) => {
       onStartUpload && onStartUpload();
-      onFinishUpload && onFinishUpload(res.data);
+      onFinishUpload && onFinishUpload(res?.data);
     });
   };
 
