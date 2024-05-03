@@ -100,7 +100,34 @@ const TimeCarouselLogic = () => {
       }
     }
   };
-  const imgName = 'LUMMC' + images[slidId]?.postedAt.split('.')[0];
+
+  // Download image
+  const downloadImg = useCallback(
+    (e) => {
+      e.preventDefault();
+      // Remote URL for the file to be downloaded
+      const url = images[slidId].url;
+      const filename =
+        'LUMMC' + images[slidId]?.postedAt.split('.')[0] + '.jpg';
+
+      fetch(url)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const blobURL = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = blobURL;
+          a.style.display = 'none';
+
+          if (filename && filename.length) a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    [images, slidId]
+  );
 
   return {
     pageStatus,
@@ -110,7 +137,7 @@ const TimeCarouselLogic = () => {
     quitPage,
     slidId,
     onSwipeImg,
-    imgName,
+    downloadImg,
   };
 };
 

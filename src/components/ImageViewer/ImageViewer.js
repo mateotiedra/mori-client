@@ -2,7 +2,6 @@ import React from 'react';
 
 import ImageViewerLogic from './ImageViewerLogic';
 import ImageGroup from '../ImageGroup/ImageGroup';
-//import { HashLink as RouterLink } from 'react-router-hash-link';
 
 function ImageViewer(props) {
   const { imgGrps } = ImageViewerLogic(props);
