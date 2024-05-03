@@ -5,6 +5,7 @@ import { HashLink as RouterLink } from 'react-router-hash-link';
 import { Box, Container, Typography } from '@mui/material';
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import EmptySpace from '../EmptySpace/EmptySpace';
 
 function ImageGroup({ images, title }) {
   return (
@@ -23,7 +24,7 @@ function ImageGroup({ images, title }) {
           gap: '1rem',
         }}
       >
-        <Typography variant='h1' sx={{ width: '100%' }}>
+        <Typography variant='h3' sx={{ width: '100%' }}>
           {title}
         </Typography>
         {images.map((image, index) => (

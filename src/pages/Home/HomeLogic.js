@@ -37,6 +37,8 @@ const HomeLogic = () => {
   // Event
   const [event, setEvent] = useState();
   const uploadMode = event?.endAt < new Date() ? 'gallery' : 'cam';
+  const eventName = event?.name;
+  const eventEnd = new Date(event?.endAt);
 
   // Add owner to image
   const addOwner = useCallback(
@@ -145,6 +147,8 @@ const HomeLogic = () => {
     onStartImgUpload,
     dontParticipate,
     uploadMode,
+    eventName,
+    eventEnd,
   };
 };
 

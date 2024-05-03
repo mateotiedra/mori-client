@@ -9,6 +9,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import ImageViewer from '../../components/ImageViewer/ImageViewer';
 import EmptySpace from '../../components/EmptySpace/EmptySpace';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
+import Countdown from '../../components/Countdown/Countdown';
 import Loading from '../Loading/Loading';
 
 function Home() {
@@ -22,6 +23,8 @@ function Home() {
     imageViewerProps,
     onStartImgUpload,
     uploadMode,
+    eventName,
+    eventEnd,
   } = HomeLogic();
 
   if (pageStatus === 'loading') return <Loading />;
@@ -69,6 +72,13 @@ function Home() {
           />
         </Navbar>
         <EmptySpace />
+        <SectionContainer maxWidth='xs'>
+          <Typography variant='h1' textAlign='left'>
+            {eventName}
+          </Typography>
+          <Countdown end={eventEnd} />
+        </SectionContainer>
+        <EmptySpace under='h1' />
         <ImageViewer
           start={imageViewerProps.start}
           end={imageViewerProps.end}
