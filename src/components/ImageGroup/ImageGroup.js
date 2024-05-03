@@ -31,8 +31,8 @@ function ImageGroup({ images, title }) {
             key={index}
             sx={{
               position: 'relative',
-              width: '100%',
-              maxWidth: '100px',
+              flex: '1',
+              minWidth: '90px',
               height: '180px',
               overflow: 'hidden',
               borderRadius: '10px',
