@@ -82,23 +82,16 @@ const TimeCarouselLogic = () => {
 
   // Go back function
   const quitPage = () => {
-    window.history.length > 1 ? navigate(-1) : navigate('/');
+    navigate('/');
   };
 
   // Images
   const [images, setImages] = useState([]);
 
   // Swipe image
-  const onSwipeImg = (direction) => {
-    if (direction === 'left') {
-      if (slidId < images.length - 1) {
-        setSlideId(slidId + 1);
-      }
-    } else {
-      if (slidId > 0) {
-        setSlideId(slidId - 1);
-      }
-    }
+  const onSwipeImg = (newId) => {
+    setSlideId(newId);
+    navigate(`/image/${images[slidId + 1].uuid}`, { replace: true });
   };
 
   // Download image
@@ -107,8 +100,12 @@ const TimeCarouselLogic = () => {
       e.preventDefault();
       // Remote URL for the file to be downloaded
       const url = images[slidId].url;
-      const filename =
-        'LUMMC' + images[slidId]?.postedAt.split('.')[0] + '.jpg';
+
+      const formattedDate = images[slidId]?.postedAt
+        .split('.')[0]
+        .replace(/:/g, '-')
+        .replace('T', '_');
+      const filename = 'LUMMC_' + formattedDate + '.jpg';
 
       fetch(url)
         .then((response) => response.blob())

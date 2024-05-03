@@ -35,7 +35,7 @@ function TimeCarousel() {
     slidesToScroll: 1,
     speed: 200,
     initialSlide: slidId,
-    onSwipe: onSwipeImg,
+    afterChange: onSwipeImg,
   };
 
   if (pageStatus === 'idle')
