@@ -5,7 +5,6 @@ import { HashLink as RouterLink } from 'react-router-hash-link';
 import { Box, Container, Typography } from '@mui/material';
 
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import EmptySpace from '../EmptySpace/EmptySpace';
 
 function ImageGroup({ images, title }) {
   return (

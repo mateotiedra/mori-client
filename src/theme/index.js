@@ -25,7 +25,6 @@ let theme = createTheme({
     fontSize: 16,
     h1: {
       fontFamily: '"Chillax-Variable", "Helvetica", "Arial", sans-serif',
-      fontWeight: 600,
       fontSize: 90,
       letterSpacing: '-4%',
       lineHeight: 1.2,
