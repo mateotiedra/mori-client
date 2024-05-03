@@ -1,7 +1,13 @@
 import React from 'react';
 
 //import { HashLink, HashLink as RouterLink } from 'react-router-hash-link';
-import { Button, Divider, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Container,
+  Divider,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 import ImageUploader from '../../components/ImageUploader/ImageUploader';
 import HomeLogic from './HomeLogic';
@@ -72,13 +78,29 @@ function Home() {
           />
         </Navbar>
         <EmptySpace />
-        <SectionContainer maxWidth='xs'>
-          <Typography variant='h1' textAlign='left'>
+        <Container
+          maxWidth='xs'
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Typography
+            variant='h1'
+            sx={{
+              width: '100%',
+              textAlign: 'right',
+            }}
+          >
             {eventName}
           </Typography>
-          <Countdown end={eventEnd} />
-        </SectionContainer>
-        <EmptySpace under='h1' />
+          <Countdown
+            end={eventEnd}
+            sx={{ width: '100%', textAlign: 'right' }}
+          />
+        </Container>
+        <EmptySpace height={100} />
         <ImageViewer
           start={imageViewerProps.start}
           end={imageViewerProps.end}
