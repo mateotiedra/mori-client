@@ -74,22 +74,26 @@ const HomeLogic = () => {
 
   const [imagesUuid, setImageUuids] = useState(null);
   const onSaveImg = useCallback(
-    (images) => {
-      // Add image to latest images
-      setLatestImages((prev) => [...images, ...prev]);
+    (latestImages) => {
+      // Add image to latest latestImages
+      setLatestImages((prev) => {
+        const newImages = [...prev, ...latestImages];
+        newImages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        return newImages;
+      });
 
       // Check if user is already registered
       const xAccessToken = localStorage.getItem('x-access-token');
       if (xAccessToken) {
         addOwner(
           xAccessToken,
-          images.map((img) => img.uuid)
+          latestImages.map((img) => img.uuid)
         );
       } else if (localStorage.getItem('cntr')) {
         // chose not to register
         setPageStatus('idle');
       } else {
-        setImageUuids(images.map((img) => img.uuid));
+        setImageUuids(latestImages.map((img) => img.uuid));
         setPageStatus('register');
       }
     },
