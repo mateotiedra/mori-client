@@ -18,6 +18,68 @@ import SectionContainer from '../../components/SectionContainer/SectionContainer
 import Countdown from '../../components/Countdown/Countdown';
 import Loading from '../Loading/Loading';
 
+function RegisterPage({
+  onSubmit,
+  dontParticipate,
+  phoneRegistration,
+  phoneErrorMessage,
+}) {
+  return (
+    <SectionContainer fullPage centered maxWidth='xs'>
+      <form onSubmit={onSubmit}>
+        <Typography variant='h1' align='center'>
+          Shot gratos !
+        </Typography>
+        <EmptySpace under='h1' />
+        <Typography variant='body1' align='center'>
+          Chaque demi-heure, notre barman en chef offre un shot à celui qui a
+          prit la meilleure photo.
+        </Typography>
+        <EmptySpace under='body1' />
+        <TextField
+          {...phoneRegistration}
+          fullWidth
+          placeholder='Num de tel (+4176...)'
+        />
+        <Typography
+          variant='body2'
+          sx={{ color: 'red', mt: 1, textAlign: 'center' }}
+        >
+          {phoneErrorMessage}
+        </Typography>
+        <Divider variant='middle' sx={{ my: 3 }} />
+        <Button onClick={dontParticipate} fullWidth variant='contained'>
+          Je ne participe pas
+        </Button>
+      </form>
+    </SectionContainer>
+  );
+}
+
+function HeaderSection({ eventName, eventEnd }) {
+  return (
+    <Container
+      maxWidth='xs'
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+      }}
+    >
+      <Typography
+        variant='h1'
+        sx={{
+          width: '100%',
+          textAlign: 'right',
+        }}
+      >
+        {eventName}
+      </Typography>
+      <Countdown end={eventEnd} sx={{ width: '100%', textAlign: 'right' }} />
+    </Container>
+  );
+}
+
 function Home() {
   const {
     onSaveImg,
@@ -37,34 +99,12 @@ function Home() {
 
   if (pageStatus === 'register')
     return (
-      <SectionContainer fullPage centered maxWidth='xs'>
-        <form onSubmit={onSubmit}>
-          <Typography variant='h1' align='center'>
-            Shot gratos !
-          </Typography>
-          <EmptySpace under='h1' />
-          <Typography variant='body1' align='center'>
-            Chaque demi-heure, notre barman en chef offre un shot à celui qui a
-            prit la meilleure photo.
-          </Typography>
-          <EmptySpace under='body1' />
-          <TextField
-            {...phoneRegistration}
-            fullWidth
-            placeholder='Num de tel (+4176...)'
-          />
-          <Typography
-            variant='body2'
-            sx={{ color: 'red', mt: 1, textAlign: 'center' }}
-          >
-            {phoneErrorMessage}
-          </Typography>
-          <Divider variant='middle' sx={{ my: 3 }} />
-          <Button onClick={dontParticipate} fullWidth variant='contained'>
-            Je ne participe pas
-          </Button>
-        </form>
-      </SectionContainer>
+      <RegisterPage
+        onSubmit={onSubmit}
+        dontParticipate={dontParticipate}
+        phoneRegistration={phoneRegistration}
+        phoneErrorMessage={phoneErrorMessage}
+      />
     );
 
   if (pageStatus === 'idle')
@@ -78,28 +118,7 @@ function Home() {
           />
         </Navbar>
         <EmptySpace />
-        <Container
-          maxWidth='xs'
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-          }}
-        >
-          <Typography
-            variant='h1'
-            sx={{
-              width: '100%',
-              textAlign: 'right',
-            }}
-          >
-            {eventName}
-          </Typography>
-          <Countdown
-            end={eventEnd}
-            sx={{ width: '100%', textAlign: 'right' }}
-          />
-        </Container>
+        <HeaderSection eventName={eventName} eventEnd={eventEnd} />
         <EmptySpace height={100} />
         <ImageViewer
           start={imageViewerProps.start}
