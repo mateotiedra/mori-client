@@ -92,7 +92,7 @@ const TimeCarouselLogic = () => {
   const onSwipeImg = (newId) => {
     if (newId < 0 || newId >= images.length) return;
     setSlideId(newId);
-    navigate(`/image/${images[slidId + 1].uuid}`, { replace: true });
+    navigate(`/image/${images[newId].uuid}`, { replace: true });
   };
 
   // Download image

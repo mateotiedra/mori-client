@@ -37,6 +37,10 @@ const CountdownLogic = ({ end }) => {
     };
   }, [end]);
 
+  if (!end || end < new Date()) {
+    return { timeLeftFormatted: '' };
+  }
+
   return { timeLeftFormatted };
 };
 
