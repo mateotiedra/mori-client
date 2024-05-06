@@ -27,8 +27,6 @@ export const upload = (files, next) => {
   }
   formData.append('eventId', 1);
 
-  const now = new Date();
-
   formData.append('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
 
   axios
