@@ -42,27 +42,27 @@ const HomeLogic = () => {
 
   // Add owner to image
   const addOwner = useCallback(
-    (xAccessToken, givenImageUuid) => {
-      axios
-        .put(
-          API_ORIGIN + '/image/addowner',
-          { imageUuid: givenImageUuid },
-          {
-            headers: {
-              'x-access-token':
-                xAccessToken || localStorage.getItem('x-access-token'),
-            },
-          }
-        )
-        .then(() => {
-          setPageStatus('idle');
-        })
-        .catch((err) => {
-          if (err?.response?.status === 401) {
-            localStorage.removeItem('x-access-token');
-            setPageStatus('register');
-          }
-        });
+    async (xAccessToken, givenImagesUuid) => {
+      try {
+        for (let i = 0; i < givenImagesUuid.length; i++) {
+          await axios.put(
+            API_ORIGIN + '/image/addowner',
+            { imageUuid: givenImagesUuid[i] },
+            {
+              headers: {
+                'x-access-token':
+                  xAccessToken || localStorage.getItem('x-access-token'),
+              },
+            }
+          );
+        }
+      } catch (err) {
+        if (err?.response?.status === 401) {
+          localStorage.removeItem('x-access-token');
+          setPageStatus('register');
+        }
+      }
+      setPageStatus('idle');
     },
     [setPageStatus]
   );
@@ -72,25 +72,28 @@ const HomeLogic = () => {
     setPageStatus('loading');
   }, [setPageStatus]);
 
-  const [imageUuid, setImageUuid] = useState(null);
+  const [imagesUuid, setImageUuids] = useState(null);
   const onSaveImg = useCallback(
-    (img) => {
+    (images) => {
       // Add image to latest images
-      setLatestImages((prev) => [img, ...prev]);
+      setLatestImages((prev) => [...images, ...prev]);
 
       // Check if user is already registered
       const xAccessToken = localStorage.getItem('x-access-token');
       if (xAccessToken) {
-        addOwner(xAccessToken, imageUuid);
+        addOwner(
+          xAccessToken,
+          images.map((img) => img.uuid)
+        );
       } else if (localStorage.getItem('cntr')) {
         // chose not to register
         setPageStatus('idle');
       } else {
-        setImageUuid(img.uuid);
+        setImageUuids(images.map((img) => img.uuid));
         setPageStatus('register');
       }
     },
-    [setPageStatus, addOwner, setImageUuid, setLatestImages, imageUuid]
+    [setPageStatus, addOwner, setLatestImages, setImageUuids]
   );
 
   // Register phone number
@@ -104,7 +107,7 @@ const HomeLogic = () => {
       .post(API_ORIGIN + '/phoneuser/register', { phone })
       .then((res) => {
         localStorage.setItem('x-access-token', res.data.accessToken);
-        addOwner(res.data.accessToken, imageUuid);
+        addOwner(res.data.accessToken, imagesUuid);
       })
       .catch((err) => {
         if (err?.response?.status === 409) {
