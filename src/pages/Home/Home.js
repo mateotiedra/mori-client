@@ -64,6 +64,7 @@ function HeaderSection({ eventName, eventEnd }) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
+        px: 5,
       }}
     >
       <Typography

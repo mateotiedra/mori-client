@@ -22,6 +22,8 @@ const HomeLogic = () => {
       console.log(err);
     }
 
+    document.title = event?.name || 'Morii';
+
     try {
       const res = await axios.get(API_ORIGIN + '/image/latest', {
         params: { eventId: event.id },
