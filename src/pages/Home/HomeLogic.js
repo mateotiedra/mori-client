@@ -48,44 +48,43 @@ const HomeLogic = () => {
   // Load more images
   const allImageLoaded = useRef(false);
 
-  const loadMoreImages = (event, latestImages, setLatestImages) => async () => {
-    if (
-      window.innerHeight + window.scrollY + 100 <= document.body.offsetHeight ||
-      pageStatus !== 'idle' ||
-      !event ||
-      !latestImages ||
-      !latestImages.length ||
-      allImageLoaded.current
-    )
-      return;
-
-    setPageStatus('loading-more-images');
-
-    try {
-      const res = await axios.get(API_ORIGIN + '/image/latest', {
-        params: {
-          eventId: event.id,
-          lastImageUuid: latestImages[latestImages.length - 1].uuid,
-          limit: nbrImgReq,
-        },
-      });
-
-      allImageLoaded.current = res.data.length < nbrImgReq;
-      setLatestImages((prev) => [...prev, ...res.data]);
-
-      setPageStatus('idle');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    window.onscroll = loadMoreImages(event, latestImages, setLatestImages);
+    window.onscroll = async () => {
+      if (
+        window.innerHeight + window.scrollY + 100 <=
+          document.body.offsetHeight ||
+        pageStatus !== 'idle' ||
+        !event ||
+        !latestImages ||
+        !latestImages.length ||
+        allImageLoaded.current
+      )
+        return;
+
+      setPageStatus('loading-more-images');
+
+      try {
+        const res = await axios.get(API_ORIGIN + '/image/latest', {
+          params: {
+            eventId: event.id,
+            lastImageUuid: latestImages[latestImages.length - 1].uuid,
+            limit: nbrImgReq,
+          },
+        });
+
+        allImageLoaded.current = res.data.length < nbrImgReq;
+        setLatestImages((prev) => [...prev, ...res.data]);
+
+        setPageStatus('idle');
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
     return () => {
       window.onscroll = null;
     };
-  }, [event, latestImages, setLatestImages]);
+  }, [event, latestImages, setLatestImages, pageStatus, setPageStatus]);
 
   // Add owner to image
   const addOwner = useCallback(
