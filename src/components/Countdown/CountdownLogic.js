@@ -15,7 +15,7 @@ function getTimeRemaining(date1, date2) {
     .toString()
     .padStart(2, '0');
   const days = Math.floor(difference / 1000 / 60 / 60 / 24);
-  const formattedDays = days > 0 ? `${days.toString().padStart(2, '0')}J ` : '';
+  const formattedDays = days > 0 ? `${days.toString()}J ` : '';
 
   // Construct a string that describes the difference
   return `${formattedDays}${hours}:${minutes}:${seconds}`;

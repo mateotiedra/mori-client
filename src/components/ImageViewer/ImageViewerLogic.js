@@ -1,6 +1,16 @@
 import { useEffect, useState } from 'react';
 import {} from 'react-router-dom';
 
+const daysInFrench = [
+  'Lundi',
+  'Mardi',
+  'Mercredi',
+  'Jeudi',
+  'Vendredi',
+  'Samedi',
+  'Dimanche',
+];
+
 const ImageViewerLogic = ({ images, start, end, timeFrame }) => {
   const [imgGrps, setImgGrps] = useState([]);
   useEffect(() => {
@@ -23,14 +33,23 @@ const ImageViewerLogic = ({ images, start, end, timeFrame }) => {
       roundedTime.setSeconds(0);
       roundedTime.setMilliseconds(0);
 
+      // specify the day if there is more than 24 hours between now and the roundedTime
+      const specifyDay =
+        roundedTime.getDay() !== now.getDay() &&
+        now - roundedTime > 9 * 60 * 60 * 1000
+          ? daysInFrench[roundedTime.getDay()]
+          : '';
+
+      const formattedTitle = `${specifyDay} ${roundedTime
+        .getHours()
+        .toString()
+        .padStart(2, '0')}h${roundedTime
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')}`;
+
       chunks.push({
-        title: `${roundedTime
-          .getHours()
-          .toString()
-          .padStart(2, '0')}h${roundedTime
-          .getMinutes()
-          .toString()
-          .padStart(2, '0')}`,
+        title: formattedTitle,
         timeStamp: roundedTime,
         images: [],
       });
