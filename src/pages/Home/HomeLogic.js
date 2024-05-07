@@ -45,7 +45,7 @@ const HomeLogic = () => {
 
   // Load more images
   const allImageLoaded = useRef(false);
-  console.log(latestImages.length);
+
   const loadMoreImages = (event, latestImages, setLatestImages) => async () => {
     if (
       window.innerHeight + window.scrollY + 100 <= document.body.offsetHeight ||
@@ -60,7 +60,6 @@ const HomeLogic = () => {
     setPageStatus('loading-more-images');
 
     try {
-      console.log(nbrImgReq);
       const res = await axios.get(API_ORIGIN + '/image/latest', {
         params: {
           eventId: event.id,
@@ -125,7 +124,6 @@ const HomeLogic = () => {
       setLatestImages((prev) => {
         const newImages = [...latestImages, ...prev];
         newImages.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
-        console.log('sort');
         return newImages;
       });
 
