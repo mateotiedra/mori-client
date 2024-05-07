@@ -107,26 +107,26 @@ function Home() {
       />
     );
 
-  if (pageStatus === 'idle')
-    return (
-      <>
-        <Navbar>
-          <ImageUploader
-            onStartUpload={onStartImgUpload}
-            onFinishUpload={onSaveImg}
-            uploadMode={uploadMode}
-          />
-        </Navbar>
-        <EmptySpace />
-        <HeaderSection eventName={eventName} eventEnd={eventEnd} />
-        <EmptySpace height={100} />
-        <ImageViewer
-          start={imageViewerProps.start}
-          end={imageViewerProps.end}
-          images={imageViewerProps.images}
-          timeFrame={30}
+  return (
+    <>
+      <Navbar>
+        <ImageUploader
+          onStartUpload={onStartImgUpload}
+          onFinishUpload={onSaveImg}
+          uploadMode={uploadMode}
         />
-      </>
-    );
+      </Navbar>
+      <EmptySpace />
+      <HeaderSection eventName={eventName} eventEnd={eventEnd} />
+      <EmptySpace height={100} />
+      <ImageViewer
+        start={imageViewerProps.start}
+        end={imageViewerProps.end}
+        images={imageViewerProps.images}
+        timeFrame={30}
+      />
+      {pageStatus === 'loading-more-images' && <Loading notFullPage />}
+    </>
+  );
 }
 export default Home;

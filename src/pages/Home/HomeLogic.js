@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
@@ -8,11 +8,13 @@ import { API_ORIGIN } from '../../config/AppConfig';
 const HomeLogic = () => {
   const { useLoadPage, pageStatus, setPageStatus } = PageLogicHelper();
 
+  // Page load
+  const nbrImgReq = 30;
   useLoadPage(async () => {
     let event;
     try {
       const res = await axios.get(API_ORIGIN + '/event', {
-        params: { eventId: 1 },
+        params: { eventId: 1, limit: nbrImgReq },
       });
       event = res.data;
       setEvent(event);
@@ -24,6 +26,7 @@ const HomeLogic = () => {
       const res = await axios.get(API_ORIGIN + '/image/latest', {
         params: { eventId: event.id },
       });
+      allImageLoaded.current = res.data.length < nbrImgReq;
       setLatestImages(res.data);
     } catch (err) {
       console.log(err);
@@ -31,14 +34,57 @@ const HomeLogic = () => {
     setPageStatus('idle');
   });
 
-  // Latest images
-  const [latestImages, setLatestImages] = useState([]);
-
   // Event
   const [event, setEvent] = useState();
   const uploadMode = event?.endAt < new Date() ? 'gallery' : 'cam';
   const eventName = event?.name;
   const eventEnd = new Date(event?.endAt);
+
+  // Latest images
+  const [latestImages, setLatestImages] = useState([]);
+
+  // Load more images
+  const allImageLoaded = useRef(false);
+  console.log(latestImages.length);
+  const loadMoreImages = (event, latestImages, setLatestImages) => async () => {
+    if (
+      window.innerHeight + window.scrollY + 100 <= document.body.offsetHeight ||
+      pageStatus !== 'idle' ||
+      !event ||
+      !latestImages ||
+      !latestImages.length ||
+      allImageLoaded.current
+    )
+      return;
+
+    setPageStatus('loading-more-images');
+
+    try {
+      console.log(nbrImgReq);
+      const res = await axios.get(API_ORIGIN + '/image/latest', {
+        params: {
+          eventId: event.id,
+          lastImageUuid: latestImages[latestImages.length - 1].uuid,
+          limit: nbrImgReq,
+        },
+      });
+
+      allImageLoaded.current = res.data.length < nbrImgReq;
+      setLatestImages((prev) => [...prev, ...res.data]);
+
+      setPageStatus('idle');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    window.onscroll = loadMoreImages(event, latestImages, setLatestImages);
+
+    return () => {
+      window.onscroll = null;
+    };
+  }, [event, latestImages, setLatestImages]);
 
   // Add owner to image
   const addOwner = useCallback(
@@ -77,8 +123,9 @@ const HomeLogic = () => {
     (latestImages) => {
       // Add image to latest latestImages
       setLatestImages((prev) => {
-        const newImages = [...prev, ...latestImages];
-        newImages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        const newImages = [...latestImages, ...prev];
+        newImages.sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt));
+        console.log('sort');
         return newImages;
       });
 
