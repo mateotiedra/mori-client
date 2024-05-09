@@ -132,7 +132,8 @@ const TimeCarouselLogic = () => {
   const increaseSecret = useCallback(() => {
     setSecretCount((prev) => ++prev);
   }, []);
-  const ownerPhone = images && images[slidId] && images[slidId].phoneuser.phone;
+  const ownerPhone =
+    (images && images[slidId]?.phoneuser?.phone) || 'Pas spécifié';
 
   return {
     pageStatus,
