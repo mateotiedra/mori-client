@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import {} from 'react-router-dom';
 
 const daysInFrench = [
+  'Dimanche',
   'Lundi',
   'Mardi',
   'Mercredi',
   'Jeudi',
   'Vendredi',
   'Samedi',
-  'Dimanche',
 ];
 
 const ImageViewerLogic = ({ images, start, end, timeFrame }) => {
