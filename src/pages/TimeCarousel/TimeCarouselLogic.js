@@ -127,6 +127,13 @@ const TimeCarouselLogic = () => {
     [images, slidId]
   );
 
+  // Secret phone number display
+  const [secretCount, setSecretCount] = useState(0);
+  const increaseSecret = useCallback(() => {
+    setSecretCount((prev) => ++prev);
+  }, []);
+  const ownerPhone = images && images[slidId] && images[slidId].phoneuser.phone;
+
   return {
     pageStatus,
     images,
@@ -136,6 +143,9 @@ const TimeCarouselLogic = () => {
     slidId,
     onSwipeImg,
     downloadImg,
+    increaseSecret,
+    displaySecret: secretCount >= 4,
+    ownerPhone,
   };
 };
 

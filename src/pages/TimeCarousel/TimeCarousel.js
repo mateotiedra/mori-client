@@ -1,7 +1,7 @@
 import React from 'react';
 
 //import { HashLink, HashLink as RouterLink } from 'react-router-hash-link';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 import Loading from '../Loading/Loading';
 import Slider from 'react-slick';
@@ -22,6 +22,9 @@ function TimeCarousel() {
     slidId,
     onSwipeImg,
     downloadImg,
+    increaseSecret,
+    displaySecret,
+    ownerPhone,
   } = TimeCarouselLogic();
 
   const palette = Palette();
@@ -48,6 +51,21 @@ function TimeCarousel() {
           position: 'relative',
         }}
       >
+        <Button
+          variant='contained'
+          color='secondary'
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 100,
+            height: 70,
+            width: 150,
+          }}
+          onClick={increaseSecret}
+        />
+
         {!fullScreen && (
           <>
             <Button
@@ -79,24 +97,40 @@ function TimeCarousel() {
           </>
         )}
         <Box onClick={toggleFullScreen}>
-          <Slider {...sliderSettings}>
-            {images.map((image, index) => {
-              return (
-                <div key={index}>
-                  <img
-                    key={index}
-                    src={image.url}
-                    alt='img'
-                    style={{
-                      width: '100vw',
-                      height: '100vh',
-                      objectFit: 'contain',
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </Slider>
+          {displaySecret ? (
+            <Box
+              sx={{
+                height: '100vh',
+                width: '100vw',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Typography component='a' href={'tel:' + ownerPhone}>
+                {ownerPhone}
+              </Typography>
+            </Box>
+          ) : (
+            <Slider {...sliderSettings}>
+              {images.map((image, index) => {
+                return (
+                  <div key={index}>
+                    <img
+                      key={index}
+                      src={image.url}
+                      alt='img'
+                      style={{
+                        width: '100vw',
+                        height: '100vh',
+                        objectFit: 'contain',
+                      }}
+                    />
+                  </div>
+                );
+              })}
+            </Slider>
+          )}
         </Box>
       </Box>
     );
