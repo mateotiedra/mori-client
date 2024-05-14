@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { CircularProgress, Box, Typography } from '@mui/material';
 
 // The loading page
-function Loading({ notFullPage }) {
+function Loading({ notFullPage, message }) {
   const [seconds, setSeconds] = useState(3);
   const [displayMessage, setDisplayMessage] = useState(false);
 
@@ -54,7 +54,9 @@ function Loading({ notFullPage }) {
           color={displayMessage ? 'text.primary' : 'transparent'}
           sx={{ transitionDuration: '500ms', textAlign: 'center' }}
         >
-          Le chargement peut prendre quelques secondes...
+          {!!message
+            ? message
+            : 'Le chargement peut prendre quelques secondes...'}
         </Typography>
       </Box>
     </Box>

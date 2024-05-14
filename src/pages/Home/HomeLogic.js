@@ -6,7 +6,7 @@ import PageLogicHelper from '../../helpers/PageLogicHelper';
 import { API_ORIGIN } from '../../config/AppConfig';
 
 const HomeLogic = () => {
-  const { useLoadPage, pageStatus, setPageStatus } = PageLogicHelper();
+  const { useLoadPage, pageStatus, setPageStatus, params } = PageLogicHelper();
 
   // Page load
   const nbrImgReq = 30;
@@ -188,6 +188,14 @@ const HomeLogic = () => {
     end: new Date(event?.endAt),
   };
 
+  const toggleTimeCarousel = useCallback(() => {
+    if (pageStatus === 'idle') {
+      setPageStatus('time-carousel');
+    } else if (pageStatus === 'time-carousel') {
+      setPageStatus('idle');
+    }
+  }, [pageStatus]);
+
   return {
     pageStatus,
     onSaveImg,
@@ -202,6 +210,7 @@ const HomeLogic = () => {
     uploadMode,
     eventName,
     eventEnd,
+    toggleTimeCarousel,
   };
 };
 

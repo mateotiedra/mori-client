@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import {} from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import PageLogicHelper from '../../helpers/PageLogicHelper';
 
 const daysInFrench = [
   'Dimanche',
@@ -11,7 +11,15 @@ const daysInFrench = [
   'Samedi',
 ];
 
-const ImageViewerLogic = ({ images, start, end, timeFrame }) => {
+const ImageViewerLogic = ({
+  images,
+  start,
+  end,
+  timeFrame,
+  toggleTimeCarousel,
+}) => {
+  const { navigate } = PageLogicHelper();
+
   const [imgGrps, setImgGrps] = useState([]);
   useEffect(() => {
     const now = new Date();
@@ -69,6 +77,18 @@ const ImageViewerLogic = ({ images, start, end, timeFrame }) => {
 
     images.forEach((image) => {
       const postedAt = new Date(image.postedAt);
+      if (postedAt < from || postedAt > to) {
+        if (chunks[chunks.length - 1].title !== 'En vrac') {
+          chunks.push({
+            title: 'En vrac',
+            timeStamp: to,
+            images: [],
+          });
+        }
+        chunks[chunks.length - 1].images.push(image);
+        return;
+      }
+
       for (let chunk_i = 0; chunk_i < chunks.length; ++chunk_i) {
         const chunk = chunks[chunk_i];
         if (postedAt >= chunk.timeStamp) {
@@ -82,8 +102,15 @@ const ImageViewerLogic = ({ images, start, end, timeFrame }) => {
     setImgGrps(chunks);
   }, [images, start, end, timeFrame]);
 
+  const clickImage = useCallback((uuid) => () => {
+    navigate(`/image/${uuid}`);
+    console.log('nagigate');
+    toggleTimeCarousel();
+  });
+
   return {
     imgGrps,
+    clickImage,
   };
 };
 

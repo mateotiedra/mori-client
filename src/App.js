@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ErrorHandlerWrapper from './ErrorHandler/ErrorHandlerWrapper';
 import Home from './pages/Home/Home';
-import TimeCarousel from './pages/TimeCarousel/TimeCarousel';
 
 // Manage routing
 function App() {
@@ -12,7 +11,7 @@ function App() {
       <ErrorHandlerWrapper>
         <Routes>
           <Route path='/' default element={<Home />} />
-          <Route path='/image/:uuid' default element={<TimeCarousel />} />
+          <Route path='/image/:uuid' element={<Home />} />
         </Routes>
       </ErrorHandlerWrapper>
     </Router>

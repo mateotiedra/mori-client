@@ -4,7 +4,7 @@ import ImageViewerLogic from './ImageViewerLogic';
 import ImageGroup from '../ImageGroup/ImageGroup';
 
 function ImageViewer(props) {
-  const { imgGrps } = ImageViewerLogic(props);
+  const { imgGrps, clickImage } = ImageViewerLogic(props);
 
   return (
     <>
@@ -13,7 +13,12 @@ function ImageViewer(props) {
           return null;
         }
         return (
-          <ImageGroup key={i} images={imgGrp.images} title={imgGrp.title} />
+          <ImageGroup
+            key={i}
+            images={imgGrp.images}
+            title={imgGrp.title}
+            clickImage={clickImage}
+          />
         );
       })}
     </>

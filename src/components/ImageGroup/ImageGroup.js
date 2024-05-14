@@ -3,7 +3,7 @@ import React from 'react';
 import { HashLink as RouterLink } from 'react-router-hash-link';
 import { Box, Container, Typography } from '@mui/material';
 
-function ImageGroup({ images, title }) {
+function ImageGroup({ images, title, clickImage }) {
   return (
     <Container
       maxWidth='xs'
@@ -35,8 +35,7 @@ function ImageGroup({ images, title }) {
               borderRadius: '10px',
               textDecoration: 'none',
             }}
-            component={RouterLink}
-            to={'/image/' + image.uuid}
+            onClick={clickImage(image.uuid)}
           >
             <Box
               component='img'

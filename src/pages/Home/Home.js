@@ -17,6 +17,7 @@ import EmptySpace from '../../components/EmptySpace/EmptySpace';
 import SectionContainer from '../../components/SectionContainer/SectionContainer';
 import Countdown from '../../components/Countdown/Countdown';
 import Loading from '../Loading/Loading';
+import TimeCarousel from '../../components/TimeCarousel/TimeCarousel';
 
 function RegisterPage({
   onSubmit,
@@ -94,9 +95,11 @@ function Home() {
     uploadMode,
     eventName,
     eventEnd,
+    toggleTimeCarousel,
   } = HomeLogic();
 
-  if (pageStatus === 'loading') return <Loading />;
+  if (pageStatus === 'loading')
+    return <Loading message='Envoie des images/vidéos en cours...' />;
 
   if (pageStatus === 'register')
     return (
@@ -107,16 +110,22 @@ function Home() {
         phoneErrorMessage={phoneErrorMessage}
       />
     );
-
   return (
     <>
-      <Navbar>
-        <ImageUploader
-          onStartUpload={onStartImgUpload}
-          onFinishUpload={onSaveImg}
-          uploadMode={uploadMode}
+      {pageStatus === 'time-carousel' ? (
+        <TimeCarousel
+          images={imageViewerProps.images}
+          toggleTimeCarousel={toggleTimeCarousel}
         />
-      </Navbar>
+      ) : (
+        <Navbar>
+          <ImageUploader
+            onStartUpload={onStartImgUpload}
+            onFinishUpload={onSaveImg}
+            uploadMode={uploadMode}
+          />
+        </Navbar>
+      )}
       <EmptySpace />
       <HeaderSection eventName={eventName} eventEnd={eventEnd} />
       <EmptySpace height={100} />
@@ -125,6 +134,7 @@ function Home() {
         end={imageViewerProps.end}
         images={imageViewerProps.images}
         timeFrame={30}
+        toggleTimeCarousel={toggleTimeCarousel}
       />
       {pageStatus === 'loading-more-images' && <Loading notFullPage />}
     </>

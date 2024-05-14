@@ -1,39 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
-import { API_ORIGIN } from '../../config/AppConfig';
 
-const TimeCarouselLogic = () => {
+const TimeCarouselLogic = ({ toggleTimeCarousel, images }) => {
   const { useLoadPage, pageStatus, setPageStatus, navigate, params } =
     PageLogicHelper();
 
   // Load images when load the page
   useLoadPage(async () => {
-    let event;
-    try {
-      const res = await axios.get(API_ORIGIN + '/event', {
-        params: { eventId: 1 },
-      });
-      event = res.data;
-    } catch (err) {
-      console.log(err);
-    }
-
-    try {
-      const res = await axios.get(API_ORIGIN + '/image/latest', {
-        params: { eventId: event.id },
-      });
-      setImages(res.data);
-
-      res.data.forEach((image, index) => {
-        if (image.uuid === params.uuid) {
-          setSlideId(index);
-        }
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    console.log(params.uuid);
+    images.forEach((image, index) => {
+      if (image.uuid === params.uuid) {
+        setSlideId(index);
+      }
+    });
 
     setPageStatus('idle');
   });
@@ -83,10 +63,8 @@ const TimeCarouselLogic = () => {
   // Go back function
   const quitPage = () => {
     navigate('/');
+    toggleTimeCarousel();
   };
-
-  // Images
-  const [images, setImages] = useState([]);
 
   // Swipe image
   const onSwipeImg = (newId) => {
