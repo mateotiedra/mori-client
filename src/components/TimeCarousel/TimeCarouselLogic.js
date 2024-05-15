@@ -7,8 +7,7 @@ const TimeCarouselLogic = ({ toggleTimeCarousel, images }) => {
     PageLogicHelper();
 
   // Load images when load the page
-  useLoadPage(async () => {
-    console.log(params.uuid);
+  useLoadPage(() => {
     images.forEach((image, index) => {
       if (image.uuid === params.uuid) {
         setSlideId(index);
@@ -61,10 +60,25 @@ const TimeCarouselLogic = ({ toggleTimeCarousel, images }) => {
   }, []);
 
   // Go back function
-  const quitPage = () => {
-    navigate('/');
+  const quitPage = useCallback(() => {
     toggleTimeCarousel();
-  };
+    navigate('/', { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [toggleTimeCarousel]);
+
+  // Quit page when user go back
+  useEffect(() => {
+    const handleBackButton = (event) => {
+      console.log('Back button pressed');
+      quitPage();
+    };
+    window.addEventListener('popstate', handleBackButton);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('popstate', handleBackButton);
+    };
+  }, [quitPage]);
 
   // Swipe image
   const onSwipeImg = (newId) => {

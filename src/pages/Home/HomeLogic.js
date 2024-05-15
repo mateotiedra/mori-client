@@ -192,8 +192,10 @@ const HomeLogic = () => {
   const toggleTimeCarousel = useCallback(() => {
     if (pageStatus === 'idle') {
       setPageStatus('time-carousel');
+      document.body.style.overflow = 'hidden';
     } else if (pageStatus === 'time-carousel') {
       setPageStatus('idle');
+      document.body.style.overflow = 'auto';
     }
   }, [pageStatus, setPageStatus]);
 
