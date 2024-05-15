@@ -68,7 +68,7 @@ const HomeLogic = () => {
     } catch (err) {
       console.log(err);
     }
-  });
+  }, [setPageStatus, allImageLoaded, event, latestImages, setLatestImages]);
 
   useEffect(() => {
     window.onscroll = async () => {
@@ -89,7 +89,14 @@ const HomeLogic = () => {
         window.onscroll = null;
       };
     };
-  }, [event, latestImages, setLatestImages, pageStatus, setPageStatus]);
+  }, [
+    event,
+    latestImages,
+    setLatestImages,
+    pageStatus,
+    setPageStatus,
+    loadMoreImages,
+  ]);
 
   // Add owner to image
   const addOwner = useCallback(
