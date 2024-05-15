@@ -86,7 +86,6 @@ const TimeCarouselLogic = ({ toggleTimeCarousel, images, loadMoreImages }) => {
     setSlideId(newId);
     navigate(`/image/${images[newId].uuid}`, { replace: true });
     if (newId >= images.length - 3) {
-      console.log('Load more images', images.length);
       loadMoreImages();
     }
   };

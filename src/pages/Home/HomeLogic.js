@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 import { API_ORIGIN } from '../../config/AppConfig';
@@ -10,7 +10,7 @@ const HomeLogic = () => {
     PageLogicHelper();
 
   // Page load
-  const nbrImgReq = 15;
+  const nbrImgReq = 6;
   useLoadPage(async () => {
     let event;
     try {
@@ -97,7 +97,7 @@ const HomeLogic = () => {
       };
     };
     // eslint-disable-next-line
-  }, []);
+  }, [pageStatus, event, latestImages, allImageLoaded]);
 
   // Add owner to image
   const addOwner = useCallback(
