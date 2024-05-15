@@ -115,7 +115,7 @@ const HomeLogic = () => {
 
   // Uploading the image
   const onStartImgUpload = useCallback(() => {
-    setPageStatus('loading');
+    setPageStatus('loading-img');
   }, [setPageStatus]);
 
   const [imagesUuid, setImageUuids] = useState(null);

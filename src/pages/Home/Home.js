@@ -98,8 +98,16 @@ function Home() {
     toggleTimeCarousel,
   } = HomeLogic();
 
-  if (pageStatus === 'loading')
-    return <Loading message='Envoie des images/vidéos en cours...' />;
+  if (pageStatus.includes('loading'))
+    return (
+      <Loading
+        message={
+          pageStatus.includes('img')
+            ? 'Envoie des images/vidéos en cours...'
+            : null
+        }
+      />
+    );
 
   if (pageStatus === 'register')
     return (
