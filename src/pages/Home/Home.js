@@ -98,7 +98,7 @@ function Home() {
     toggleTimeCarousel,
   } = HomeLogic();
 
-  if (pageStatus.includes('loading'))
+  if (pageStatus === 'loading' || pageStatus === 'loading-img')
     return (
       <Loading
         message={

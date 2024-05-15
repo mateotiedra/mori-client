@@ -10,12 +10,12 @@ const HomeLogic = () => {
     PageLogicHelper();
 
   // Page load
-  const nbrImgReq = 30;
+  const nbrImgReq = 15;
   useLoadPage(async () => {
     let event;
     try {
       const res = await axios.get(API_ORIGIN + '/event', {
-        params: { eventId: 1, limit: nbrImgReq },
+        params: { eventId: 1 },
       });
       event = res.data;
       setEvent(event);
@@ -27,7 +27,7 @@ const HomeLogic = () => {
 
     try {
       const res = await axios.get(API_ORIGIN + '/image/latest', {
-        params: { eventId: event.id },
+        params: { eventId: event.id, limit: nbrImgReq },
       });
       allImageLoaded.current = res.data.length < nbrImgReq;
       setLatestImages(res.data);
