@@ -48,9 +48,10 @@ const HomeLogic = () => {
 
   // Load more images
   const allImageLoaded = useRef(false);
+  const [loadingMoreImages, setLoadingMoreImages] = useState(false);
 
   const loadMoreImages = useCallback(async () => {
-    setPageStatus('loading-more-images');
+    setLoadingMoreImages(true);
 
     try {
       const res = await axios.get(API_ORIGIN + '/image/latest', {
@@ -64,11 +65,17 @@ const HomeLogic = () => {
       allImageLoaded.current = res.data.length < nbrImgReq;
       setLatestImages((prev) => [...prev, ...res.data]);
 
-      setPageStatus('idle');
+      setLoadingMoreImages(false);
     } catch (err) {
       console.log(err);
     }
-  }, [setPageStatus, allImageLoaded, event, latestImages, setLatestImages]);
+  }, [
+    setLoadingMoreImages,
+    allImageLoaded,
+    event,
+    latestImages,
+    setLatestImages,
+  ]);
 
   useEffect(() => {
     window.onscroll = async () => {
@@ -89,14 +96,8 @@ const HomeLogic = () => {
         window.onscroll = null;
       };
     };
-  }, [
-    event,
-    latestImages,
-    setLatestImages,
-    pageStatus,
-    setPageStatus,
-    loadMoreImages,
-  ]);
+    // eslint-disable-next-line
+  }, []);
 
   // Add owner to image
   const addOwner = useCallback(
@@ -226,6 +227,7 @@ const HomeLogic = () => {
     eventEnd,
     toggleTimeCarousel,
     loadMoreImages,
+    loadingMoreImages,
   };
 };
 

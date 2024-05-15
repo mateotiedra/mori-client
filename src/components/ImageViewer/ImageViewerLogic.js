@@ -77,12 +77,12 @@ const ImageViewerLogic = ({
 
     images.forEach((image) => {
       const postedAt = new Date(image.postedAt);
-      if (postedAt < from || postedAt > to) {
+      if (postedAt < from) {
         /* if (chunks[0].title !== 'En vrac') {
           chunks.unshift({
             title: 'En vrac',
             timeStamp: to,
-            images: [],
+            images  : [],
           });
         }
         chunks[0].images.push(image); */

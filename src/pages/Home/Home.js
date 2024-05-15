@@ -97,6 +97,7 @@ function Home() {
     eventEnd,
     toggleTimeCarousel,
     loadMoreImages,
+    loadingMoreImages,
   } = HomeLogic();
 
   if (pageStatus === 'loading' || pageStatus === 'loading-img')
@@ -146,7 +147,7 @@ function Home() {
         timeFrame={30}
         toggleTimeCarousel={toggleTimeCarousel}
       />
-      {pageStatus === 'loading-more-images' && <Loading notFullPage />}
+      {loadingMoreImages && <Loading notFullPage />}
     </>
   );
 }
