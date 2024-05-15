@@ -6,7 +6,8 @@ import PageLogicHelper from '../../helpers/PageLogicHelper';
 import { API_ORIGIN } from '../../config/AppConfig';
 
 const HomeLogic = () => {
-  const { useLoadPage, pageStatus, setPageStatus, params } = PageLogicHelper();
+  const { useLoadPage, pageStatus, setPageStatus /* params */ } =
+    PageLogicHelper();
 
   // Page load
   const nbrImgReq = 30;
@@ -194,7 +195,7 @@ const HomeLogic = () => {
     } else if (pageStatus === 'time-carousel') {
       setPageStatus('idle');
     }
-  }, [pageStatus]);
+  }, [pageStatus, setPageStatus]);
 
   return {
     pageStatus,

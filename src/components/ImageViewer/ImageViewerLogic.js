@@ -102,11 +102,13 @@ const ImageViewerLogic = ({
     setImgGrps(chunks);
   }, [images, start, end, timeFrame]);
 
-  const clickImage = useCallback((uuid) => () => {
-    navigate(`/image/${uuid}`);
-    console.log('nagigate');
-    toggleTimeCarousel();
-  });
+  const clickImage = useCallback(
+    (uuid) => () => {
+      navigate(`/image/${uuid}`);
+      toggleTimeCarousel();
+    },
+    [navigate, toggleTimeCarousel]
+  );
 
   return {
     imgGrps,

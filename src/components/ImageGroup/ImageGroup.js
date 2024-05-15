@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { HashLink as RouterLink } from 'react-router-hash-link';
 import { Box, Container, Typography } from '@mui/material';
 
 function ImageGroup({ images, title, clickImage }) {
