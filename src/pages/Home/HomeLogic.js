@@ -96,8 +96,7 @@ const HomeLogic = () => {
         window.onscroll = null;
       };
     };
-    // eslint-disable-next-line
-  }, [pageStatus, event, latestImages, allImageLoaded]);
+  }, [pageStatus, event, latestImages, allImageLoaded, loadMoreImages]);
 
   // Add owner to image
   const addOwner = useCallback(
