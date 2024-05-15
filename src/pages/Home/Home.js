@@ -96,6 +96,7 @@ function Home() {
     eventName,
     eventEnd,
     toggleTimeCarousel,
+    loadMoreImages,
   } = HomeLogic();
 
   if (pageStatus === 'loading' || pageStatus === 'loading-img')
@@ -124,6 +125,7 @@ function Home() {
         <TimeCarousel
           images={imageViewerProps.images}
           toggleTimeCarousel={toggleTimeCarousel}
+          loadMoreImages={loadMoreImages}
         />
       ) : (
         <Navbar>

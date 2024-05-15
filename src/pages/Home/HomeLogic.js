@@ -49,6 +49,27 @@ const HomeLogic = () => {
   // Load more images
   const allImageLoaded = useRef(false);
 
+  const loadMoreImages = useCallback(async () => {
+    setPageStatus('loading-more-images');
+
+    try {
+      const res = await axios.get(API_ORIGIN + '/image/latest', {
+        params: {
+          eventId: event.id,
+          lastImageUuid: latestImages[latestImages.length - 1].uuid,
+          limit: nbrImgReq,
+        },
+      });
+
+      allImageLoaded.current = res.data.length < nbrImgReq;
+      setLatestImages((prev) => [...prev, ...res.data]);
+
+      setPageStatus('idle');
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
   useEffect(() => {
     window.onscroll = async () => {
       if (
@@ -62,28 +83,11 @@ const HomeLogic = () => {
       )
         return;
 
-      setPageStatus('loading-more-images');
+      loadMoreImages();
 
-      try {
-        const res = await axios.get(API_ORIGIN + '/image/latest', {
-          params: {
-            eventId: event.id,
-            lastImageUuid: latestImages[latestImages.length - 1].uuid,
-            limit: nbrImgReq,
-          },
-        });
-
-        allImageLoaded.current = res.data.length < nbrImgReq;
-        setLatestImages((prev) => [...prev, ...res.data]);
-
-        setPageStatus('idle');
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    return () => {
-      window.onscroll = null;
+      return () => {
+        window.onscroll = null;
+      };
     };
   }, [event, latestImages, setLatestImages, pageStatus, setPageStatus]);
 
@@ -214,6 +218,7 @@ const HomeLogic = () => {
     eventName,
     eventEnd,
     toggleTimeCarousel,
+    loadMoreImages,
   };
 };
 

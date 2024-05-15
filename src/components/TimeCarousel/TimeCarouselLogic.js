@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 
-const TimeCarouselLogic = ({ toggleTimeCarousel, images }) => {
+const TimeCarouselLogic = ({ toggleTimeCarousel, images, loadMoreImages }) => {
   const { useLoadPage, pageStatus, setPageStatus, navigate, params } =
     PageLogicHelper();
 
@@ -85,6 +85,10 @@ const TimeCarouselLogic = ({ toggleTimeCarousel, images }) => {
     if (newId < 0 || newId >= images.length) return;
     setSlideId(newId);
     navigate(`/image/${images[newId].uuid}`, { replace: true });
+    if (newId >= images.length - 3) {
+      console.log('Load more images', images.length);
+      loadMoreImages();
+    }
   };
 
   // Download image
