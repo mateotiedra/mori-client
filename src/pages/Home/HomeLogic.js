@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
 import { API_ORIGIN } from '../../config/AppConfig';
