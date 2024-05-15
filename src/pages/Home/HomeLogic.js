@@ -10,7 +10,7 @@ const HomeLogic = () => {
     PageLogicHelper();
 
   // Page load
-  const nbrImgReq = 6;
+  const nbrImgReq = 16;
   useLoadPage(async () => {
     let event;
     try {
@@ -61,7 +61,6 @@ const HomeLogic = () => {
           limit: nbrImgReq,
         },
       });
-
       allImageLoaded.current = res.data.length < nbrImgReq;
       setLatestImages((prev) => [...prev, ...res.data]);
 
@@ -83,6 +82,7 @@ const HomeLogic = () => {
         window.innerHeight + window.scrollY + 100 <=
           document.body.offsetHeight ||
         pageStatus !== 'idle' ||
+        loadingMoreImages ||
         !event ||
         !latestImages ||
         !latestImages.length ||
@@ -96,7 +96,14 @@ const HomeLogic = () => {
         window.onscroll = null;
       };
     };
-  }, [pageStatus, event, latestImages, allImageLoaded, loadMoreImages]);
+  }, [
+    pageStatus,
+    event,
+    latestImages,
+    allImageLoaded,
+    loadMoreImages,
+    loadingMoreImages,
+  ]);
 
   // Add owner to image
   const addOwner = useCallback(
