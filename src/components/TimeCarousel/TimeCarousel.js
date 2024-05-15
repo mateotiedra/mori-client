@@ -71,6 +71,7 @@ function TimeCarousel(props) {
               zIndex: 100,
               height: 70,
               width: 150,
+              opacity: 0,
             }}
             onClick={increaseSecret}
           />
