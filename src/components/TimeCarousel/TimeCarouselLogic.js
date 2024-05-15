@@ -25,9 +25,6 @@ const TimeCarouselLogic = ({ toggleTimeCarousel, images, loadMoreImages }) => {
     } else if (element.mozRequestFullScreen) {
       /* Firefox */
       element.mozRequestFullScreen();
-    } else if (element.webkitRequestFullscreen) {
-      /* Chrome, Safari and Opera */
-      element.webkitRequestFullscreen();
     } else if (element.msRequestFullscreen) {
       /* IE/Edge */
       element.msRequestFullscreen();
@@ -130,6 +127,29 @@ const TimeCarouselLogic = ({ toggleTimeCarousel, images, loadMoreImages }) => {
   const ownerPhone =
     (images && images[slidId]?.phoneuser?.phone) || 'Pas spécifié';
 
+  // Manage zoom
+  const [zoomMode, setZoomMode] = useState(false);
+
+  useEffect(() => {
+    const handleTouch = (event) => {
+      if (event.touches.length === 2) {
+        setZoomMode(true);
+      }
+    };
+
+    document.addEventListener('touchstart', handleTouch);
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouch);
+    };
+  }, [setZoomMode]);
+
+  const handleZoomChange = useCallback((zoom) => {
+    if (zoom?.state?.scale <= 1) {
+      setZoomMode(false);
+    }
+  }, []);
+
   return {
     pageStatus,
     images,
@@ -142,6 +162,8 @@ const TimeCarouselLogic = ({ toggleTimeCarousel, images, loadMoreImages }) => {
     increaseSecret,
     displaySecret: secretCount >= 4,
     ownerPhone,
+    zoomMode,
+    handleZoomChange,
   };
 };
 
