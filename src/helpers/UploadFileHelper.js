@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_ORIGIN } from '../config/AppConfig';
+import { API_ORIGIN, EVENT_ID } from '../config/AppConfig';
 
 export const dataURLtoFile = (dataurl, filename) => {
   // Split the DataURL to get the base64 data and MIME type
@@ -25,7 +25,7 @@ export const upload = (files, next) => {
   for (let i = 0; i < files.length; i++) {
     formData.append('images', files[i]);
   }
-  formData.append('eventId', 1);
+  formData.append('eventId', EVENT_ID);
 
   formData.append('timezone', Intl.DateTimeFormat().resolvedOptions().timeZone);
 

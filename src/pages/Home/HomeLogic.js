@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 import PageLogicHelper from '../../helpers/PageLogicHelper';
-import { API_ORIGIN } from '../../config/AppConfig';
+import { API_ORIGIN, EVENT_ID } from '../../config/AppConfig';
 
 const HomeLogic = () => {
   const { useLoadPage, pageStatus, setPageStatus /* params */ } =
@@ -15,7 +15,7 @@ const HomeLogic = () => {
     let event;
     try {
       const res = await axios.get(API_ORIGIN + '/event', {
-        params: { eventId: 1 },
+        params: { eventId: EVENT_ID },
       });
       event = res.data;
       setEvent(event);
@@ -30,6 +30,7 @@ const HomeLogic = () => {
         params: { eventId: event.id, limit: nbrImgReq },
       });
       allImageLoaded.current = res.data.length < nbrImgReq;
+
       setLatestImages(res.data);
     } catch (err) {
       console.log(err);
@@ -140,6 +141,8 @@ const HomeLogic = () => {
   const [imagesUuid, setImageUuids] = useState(null);
   const onSaveImg = useCallback(
     (latestImages) => {
+      console.log(latestImages);
+
       // Add image to latest latestImages
       setLatestImages((prev) => {
         const newImages = [...latestImages, ...prev];
