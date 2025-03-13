@@ -25,10 +25,18 @@ export const dataURLtoFile = (dataurl, filename) => {
 export const upload = async (files, next) => {
   const formData = new FormData();
   for (let i = 0; i < files.length; i++) {
-    const compressedImg = await getCompressedImage(files[i]);
+    const originalFile = files[i];
+    const renamedFile = new File(
+      [originalFile],
+      `${Date.now()}-${originalFile.name}`,
+      { type: originalFile.type }
+    );
 
-    formData.append('images', files[i]);
-    formData.append('images', compressedImg);
+    formData.append(
+      'images',
+      await getCompressedImage(renamedFile, false, 0.8)
+    );
+    formData.append('images', await getCompressedImage(renamedFile, true, 0.2));
   }
   formData.append('eventId', EVENT_ID);
 
@@ -46,15 +54,18 @@ export const upload = async (files, next) => {
     .catch((err) => console.log(err));
 };
 
-const getCompressedImage = async (imgFile) => {
+const getCompressedImage = async (imgFile, isTn) => {
   const options = {
-    maxWidthOrHeight: 200, // Maximum width or height in pixels
+    maxSizeMB: isTn ? 0.2 : 1,
+    maxWidthOrHeight: isTn ? 500 : 2000,
     useWebWorker: true,
   };
 
   try {
     const imgBlob = await imageCompression(imgFile, options);
-    return new File([imgBlob], 'tn-' + imgFile.name, { type: imgFile.type });
+    return new File([imgBlob], `${isTn ? 'tn-' : ''}${imgFile.name}`, {
+      type: imgFile.type,
+    });
   } catch (error) {
     console.error('Error compressing file:', error);
   }

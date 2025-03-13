@@ -2,6 +2,14 @@ import React from 'react';
 
 import { Box, Container, Typography } from '@mui/material';
 
+const addPrefixToUrl = (url, prefix) => {
+  const parts = url.split('/');
+  parts[parts.length - 1] = prefix + parts[parts.length - 1];
+  const result = parts.join('/');
+
+  return result;
+};
+
 function ImageGroup({ images, title, clickImage }) {
   return (
     <Container
@@ -38,7 +46,7 @@ function ImageGroup({ images, title, clickImage }) {
           >
             <Box
               component='img'
-              src={image.url}
+              src={addPrefixToUrl(image.url, 'tn-')}
               alt='w'
               style={{
                 width: '100%',
