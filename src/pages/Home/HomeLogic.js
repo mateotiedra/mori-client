@@ -146,8 +146,6 @@ const HomeLogic = () => {
   const [imagesUuid, setImageUuids] = useState(null);
   const onSaveImg = useCallback(
     (latestImages) => {
-      console.log(latestImages);
-
       // Add image to latest latestImages
       setLatestImages((prev) => {
         const newImages = [...latestImages, ...prev];
