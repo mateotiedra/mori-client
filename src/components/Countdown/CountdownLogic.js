@@ -37,7 +37,7 @@ const CountdownLogic = ({ end }) => {
     };
   }, [end]);
 
-  if (!end || end < new Date()) {
+  if (!end) {
     return { timeLeftFormatted: '' };
   }
 

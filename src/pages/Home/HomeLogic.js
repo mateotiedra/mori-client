@@ -18,6 +18,7 @@ const HomeLogic = () => {
         params: { eventId: EVENT_ID },
       });
       event = res.data;
+
       setEvent(event);
     } catch (err) {
       console.log(err);
@@ -40,9 +41,13 @@ const HomeLogic = () => {
 
   // Event
   const [event, setEvent] = useState();
-  const uploadMode = event?.endAt < new Date() ? 'gallery' : 'cam';
+  const now = new Date();
+  const uploadMode = event?.endAt < now ? 'gallery' : 'cam';
   const eventName = event?.name;
-  const eventEnd = new Date(event?.endAt);
+  const eventEnd =
+    now < new Date(event?.endAt)
+      ? new Date(now < new Date(event?.startAt) ? event?.startAt : event?.endAt)
+      : undefined;
 
   // Latest images
   const [latestImages, setLatestImages] = useState([]);
