@@ -43,7 +43,7 @@ function Navbar({ coverPage, empty, children, height, hideLogo }) {
                 top: -5,
               }}
               component='a'
-              href='https://www.lumm.love'
+              href='https://www.artiphys.ch'
             >
               <Box
                 sx={{ height: 40 }}
