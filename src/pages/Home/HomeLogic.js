@@ -67,6 +67,9 @@ const HomeLogic = () => {
           limit: nbrImgReq,
         },
       });
+
+      console.log(res);
+
       allImageLoaded.current = res.data.length < nbrImgReq;
       setLatestImages((prev) => [...prev, ...res.data]);
 
@@ -130,7 +133,7 @@ const HomeLogic = () => {
       } catch (err) {
         if (err?.response?.status === 401) {
           localStorage.removeItem('x-access-token');
-          setPageStatus('register');
+          setPageStatus('idle');
         }
       }
       setPageStatus('idle');
@@ -165,7 +168,7 @@ const HomeLogic = () => {
         setPageStatus('idle');
       } else {
         setImageUuids(latestImages.map((img) => img.uuid));
-        setPageStatus('register');
+        setPageStatus('idle');
       }
     },
     [setPageStatus, addOwner, setLatestImages, setImageUuids]
