@@ -211,7 +211,7 @@ const HomeLogic = () => {
   // Image viewer
   const imageViewerProps = {
     images: latestImages,
-    start: new Date(event?.startAt),
+    start: new Date(event?.createdAt),
     end: new Date(event?.endAt),
   };
 
