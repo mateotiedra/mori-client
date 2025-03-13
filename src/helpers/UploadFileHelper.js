@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { API_ORIGIN, EVENT_ID } from '../config/AppConfig';
 
+import imageCompression from 'browser-image-compression';
+
 export const dataURLtoFile = (dataurl, filename) => {
   // Split the DataURL to get the base64 data and MIME type
   const arr = dataurl.split(',');
@@ -20,10 +22,13 @@ export const dataURLtoFile = (dataurl, filename) => {
   return new File([blob], filename, { type: mime });
 };
 
-export const upload = (files, next) => {
+export const upload = async (files, next) => {
   const formData = new FormData();
   for (let i = 0; i < files.length; i++) {
+    const compressedImg = await getCompressedImage(files[i]);
+
     formData.append('images', files[i]);
+    formData.append('images', compressedImg);
   }
   formData.append('eventId', EVENT_ID);
 
@@ -39,4 +44,18 @@ export const upload = (files, next) => {
       next && next(res);
     })
     .catch((err) => console.log(err));
+};
+
+const getCompressedImage = async (imgFile) => {
+  const options = {
+    maxWidthOrHeight: 200, // Maximum width or height in pixels
+    useWebWorker: true,
+  };
+
+  try {
+    const imgBlob = await imageCompression(imgFile, options);
+    return new File([imgBlob], 'tn-' + imgFile.name, { type: imgFile.type });
+  } catch (error) {
+    console.error('Error compressing file:', error);
+  }
 };
