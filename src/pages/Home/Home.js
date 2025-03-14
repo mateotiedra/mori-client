@@ -72,12 +72,12 @@ function HeaderSection({ eventName, eventEnd }) {
         variant='h1'
         sx={{
           width: '100%',
-          textAlign: 'right',
+          fontSize: 70,
         }}
       >
         {eventName}
       </Typography>
-      <Countdown end={eventEnd} sx={{ width: '100%', textAlign: 'right' }} />
+      <Countdown end={eventEnd} sx={{ width: '100%' }} />
     </Container>
   );
 }
